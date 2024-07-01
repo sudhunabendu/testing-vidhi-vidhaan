@@ -160,13 +160,13 @@ class ProviderController extends Controller
         }
     }
 
-    // public function logout()
-    // {
-    //     Session::forget('provider');
-    //     Session::forget('url.intended');
-    //     Auth::logout();
-    //     return Redirect()->route('login')->with('success', 'Logout Successfully');
-    // }
+    public function logout()
+    {
+        Session::forget('provider');
+        Session::forget('url.intended');
+        Auth::logout();
+        return Redirect()->route('login')->with('success', 'Logout Successfully');
+    }
 
 
     public function profilePage(){
