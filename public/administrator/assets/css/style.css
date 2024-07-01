@@ -1,0 +1,7 @@
+.ttt-toast{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    text-align: right;
+    z-index: 1111;
+}
