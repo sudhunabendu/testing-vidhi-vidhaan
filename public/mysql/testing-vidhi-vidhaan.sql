@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2024 at 03:53 PM
+-- Generation Time: Jul 02, 2024 at 03:46 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -513,7 +513,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2024_06_25_103155_create_categories_table', 7),
 (20, '2024_06_27_061108_create_gemstones_table', 7),
 (21, '2024_07_01_070150_create_karmkands_table', 8),
-(22, '2024_07_01_130500_create_carts_table', 8);
+(22, '2024_07_01_130500_create_carts_table', 8),
+(23, '2024_07_02_120006_create_user_details_table', 9);
 
 -- --------------------------------------------------------
 
@@ -630,8 +631,8 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `name`, `slug`, `description`, `price`, `images`, `created_at`, `updated_at`) VALUES
-(4, 'Devika Pal', 'tes-tet-s-te--vhcf-hbfhvb-v-fv', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 1200.00, '1718707243_astrologerimg4.png', '2024-06-18 05:10:43', '2024-06-18 05:10:43'),
-(5, 'Aditya Basu', 'Aditya-Basu', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 2000.00, '1718715886_astrologerimg2.png', '2024-06-18 07:34:46', '2024-06-18 07:34:46');
+(4, 'Service 1', 'tes-tet-s-te--vhcf-hbfhvb-v-fv', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 1200.00, '1718707243_astrologerimg4.png', '2024-06-18 05:10:43', '2024-06-18 05:10:43'),
+(5, 'Service -2', 'Aditya-Basu', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 2000.00, '1718715886_astrologerimg2.png', '2024-06-18 07:34:46', '2024-06-18 07:34:46');
 
 -- --------------------------------------------------------
 
@@ -691,6 +692,36 @@ INSERT INTO `user_codes` (`id`, `user_id`, `code`, `type`, `created_at`, `update
 (2, 4, '8386', 'Registration', '2024-06-26 00:45:22', '2024-06-26 00:45:22'),
 (9, 12, '5672', 'Registration', '2024-06-26 23:40:39', '2024-06-26 23:40:39'),
 (11, 14, '6622', 'Registration', '2024-07-01 06:36:45', '2024-07-01 06:36:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_details`
+--
+
+CREATE TABLE `user_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `images` varchar(255) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `education` varchar(255) DEFAULT NULL,
+  `experience` varchar(255) DEFAULT NULL,
+  `country_id` bigint(20) DEFAULT NULL,
+  `state_id` bigint(20) DEFAULT NULL,
+  `city_id` bigint(20) DEFAULT NULL,
+  `post_code` varchar(255) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_details`
+--
+
+INSERT INTO `user_details` (`id`, `user_id`, `images`, `dob`, `education`, `experience`, `country_id`, `state_id`, `city_id`, `post_code`, `address`, `created_at`, `updated_at`) VALUES
+(1, 14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 12, '1719927484_astrologerimage2.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-02 08:08:04');
 
 --
 -- Indexes for dumped tables
@@ -809,6 +840,13 @@ ALTER TABLE `user_codes`
   ADD KEY `user_codes_user_id_foreign` (`user_id`);
 
 --
+-- Indexes for table `user_details`
+--
+ALTER TABLE `user_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_details_user_id_foreign` (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -870,7 +908,7 @@ ALTER TABLE `karmkands`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -907,6 +945,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_codes`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `user_details`
+--
+ALTER TABLE `user_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -947,6 +991,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_codes`
   ADD CONSTRAINT `user_codes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_details`
+--
+ALTER TABLE `user_details`
+  ADD CONSTRAINT `user_details_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
