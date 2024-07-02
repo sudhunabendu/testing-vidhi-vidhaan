@@ -25,8 +25,9 @@ class IndexController extends Controller
     {
         $products = Category::with('gemstones')->where('parent_id',1)->limit(8)->get();
         $karmkands = Category::where('parent_id',2)->limit(8)->get();
-        $services = Service::limit(6)->get();
-        return view("frontend.home.index", compact('products', 'services','karmkands'));
+        // $services = Service::limit(6)->get();
+        $providers = User::where('role_id',4)->get();
+        return view("frontend.home.index", compact('products', 'providers','karmkands'));
     }
 
 
@@ -43,33 +44,39 @@ class IndexController extends Controller
 
     public function astrologer()
     {
-        $services = Service::all();
-        return view("frontend.astrologer.index", compact('services'));
+        $providers = User::where('role_id',4)->get();
+        // return $provider;
+        return view("frontend.astrologer.index", compact('providers'));
     }
 
 
     public function astrologerDetails($slug)
     {
-        $service = Service::with('appointments')->where('slug', $slug)->first();
-        // return $service;
-        $timeRanges = [];
-        foreach ($service->appointments as $key => $value) {
-            $begin = Carbon::parse($value->start_time);
-            $end = Carbon::parse($value->end_time);
-            while ($begin < $end) {
-                $output = $begin->format('H:i') . " - ";
-                $begin->modify('+120 minutes');
-                /** Note, it modifies time by 15 minutes */
-                $output .= $begin->format('H:i');
-                $timeRanges[] = $output;
-            }
-        }
-        // print_r($timeRanges);
-        // die();
-        if (!empty($service)) {
-            return view("frontend.astrologer.details", compact('service', 'timeRanges'));
-        }
+        
     }
+
+
+    // public function astrologerDetailsOld($slug)
+    // {
+    //     $service = Service::with('appointments')->where('slug', $slug)->first();
+    //     // return $service;
+    //     $timeRanges = [];
+    //     foreach ($service->appointments as $key => $value) {
+    //         $begin = Carbon::parse($value->start_time);
+    //         $end = Carbon::parse($value->end_time);
+    //         while ($begin < $end) {
+    //             $output = $begin->format('H:i') . " - ";
+    //             $begin->modify('+120 minutes');
+    //             $output .= $begin->format('H:i');
+    //             $timeRanges[] = $output;
+    //         }
+    //     }
+    //     // print_r($timeRanges);
+    //     // die();
+    //     if (!empty($service)) {
+    //         return view("frontend.astrologer.details", compact('service', 'timeRanges'));
+    //     }
+    // }
 
     public function karamkand()
     {

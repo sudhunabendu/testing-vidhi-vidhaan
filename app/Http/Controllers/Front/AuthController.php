@@ -101,7 +101,8 @@ class AuthController extends Controller
                     return back()->with('error', 'Account is not active');
                 }
             } else {
-                return back()->with('error', 'Something unexpected happened. Try again later.');
+                return back()->with('error', 'You are not authorized.');
+                // return back()->with('error', 'Something unexpected happened. Try again later.');
             }
         }
     }
@@ -220,7 +221,7 @@ class AuthController extends Controller
     {
         Session::forget(['user','provider']);
         Session::forget('url.intended');
-        Cart::destroy();
+        // Cart::destroy();
         Auth::logout();
         return Redirect()->route('home')->with('success', 'Logout Successfully');
     }

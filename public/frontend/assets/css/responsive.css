@@ -2,13 +2,13 @@
 
 }
 /* md */
-@media(max-width: 1199px) {
+@media(max-width: 1200px) {
 
     .menu ul li a {
         font-size: 13px;
     }
     .menu ul li {
-        padding: 10px 8px;
+        padding: 10px 5px;
     }
     .header_area .header_right {
  
@@ -371,9 +371,17 @@
 
 }
 
-@media (max-width: 375px){
+@media (max-width: 380px){
 
-
+    .header_area .logo img {
+        max-height: 65px!important;
+    }
+    .header_area .logo {
+        max-width: 60px!important;
+    }
+    .register-cart .btn {
+        padding: 5px 10px!important;
+    }
     
 }
 

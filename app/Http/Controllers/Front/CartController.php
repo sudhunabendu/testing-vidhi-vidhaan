@@ -10,6 +10,21 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    /**
+     * The function `cartStore` adds a product to the shopping cart and returns a JSON response with
+     * relevant information.
+     * 
+     * @param Request request The `cartStore` function is used to add a product to the shopping cart.
+     * It takes a `Request` object as a parameter, which contains the data sent by the client-side
+     * request.
+     * 
+     * @return The function `cartStore` is returning a JSON response containing the following data:
+     * - `status`: A boolean indicating the success status of the operation.
+     * - `product_id`: The ID of the product that was added to the cart.
+     * - `total`: The subtotal of the cart after adding the product.
+     * - `cart_count`: The total count of items in the shopping cart.
+     * - `message`:
+     */
     public function cartStore(Request $request)
     {
         $product_qty = $request->input('product_qty');
@@ -40,6 +55,19 @@ class CartController extends Controller
     }
 
 
+   /**
+    * The function `cartDelete` removes a cart item, updates the cart total and count, and returns a
+    * JSON response with a success message and optionally updates the header in an AJAX request.
+    * 
+    * @param Request request The `cartDelete` function is a PHP function that handles the deletion of a
+    * cart item. It takes a `Request` object as a parameter, which likely contains information about
+    * the request being made to the server.
+    * 
+    * @return A JSON response is being returned from the `cartDelete` function. The response includes
+    * the status of the operation, a success message, the updated total of the cart, and the count of
+    * items in the cart. If the request is an AJAX request, the response also includes the rendered
+    * header view.
+    */
     public function cartDelete(Request $request)
     {
         $id = $request->input('cart_id');
@@ -57,6 +85,20 @@ class CartController extends Controller
     }
 
 
+   /**
+    * The function `cartUpdate` in PHP validates and updates the quantity of a product in the shopping
+    * cart, checking if there is enough stock and handling AJAX requests for updating the cart display.
+    * 
+    * @param Request request The `cartUpdate` function is used to update the quantity of a product in
+    * the shopping cart. Here's a breakdown of the code:
+    * 
+    * @return The function `cartUpdate` is returning a response array. The response array contains the
+    * following keys:
+    * - 'status': Indicates whether the update was successful or not (true or false).
+    * - 'total': The updated subtotal of the cart after the quantity update.
+    * - 'cart_count': The count of items in the shopping cart after the update.
+    * - 'header': The rendered view of the frontend navbar
+    */
     public function cartUpdate(Request $request)
     {
         // dd($request->all());

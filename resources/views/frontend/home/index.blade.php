@@ -185,22 +185,22 @@
             </div>
             <div class="col-lg-7 col-md-7 col-12">
                 <div class="book_astrologer_carowsal owl-carousel owl-theme">
-                    @if(count($services) > 0)
-                    @foreach ($services as $service)
-                    <div class="item">
-                        <div class="book_astrologer_carowsal_innr">
-                            <div class="astrologer_image_wrap">
-                                <img class="astrologer_imageborder"
-                                    src="{{URL::asset('/frontend/assets/images/aboutleftimageborder.png')}}">
-                                <img class="astrologer_images"
-                                    src="{{URL::asset('/images/service_images/'.$service->images)}}">
-                            </div>
-                            <div class="service_carowsal_text">
-                                <h2>{{$service->name}}</h2>
-                                <p>Master of Astrology</p>
+                    @if(count($providers) > 0)
+                    @foreach ($providers as $provider)
+                        <div class="item">
+                            <div class="book_astrologer_carowsal_innr">
+                                <div class="astrologer_image_wrap">
+                                    <img class="astrologer_imageborder"
+                                        src="{{URL::asset('/frontend/assets/images/aboutleftimageborder.png')}}">
+                                    <img class="astrologer_images"
+                                        src="{{URL::asset('/images/service_images/'.$provider->images)}}">
+                                </div>
+                                <div class="service_carowsal_text">
+                                    <h2>{{ucfirst($provider->first_name) ." ".ucfirst($provider->last_name)}}</h2>
+                                    <p>Master of Astrology</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                     @else
                     <div class="item">
@@ -414,7 +414,7 @@
         @endif
 
         @if(count($products) > 0)
-        <a href="{{route('products')}}" class="btn gemstone_explorebtn page_btn_dark ">Explore All</a>
+        <a href="{{route('gemstones')}}" class="btn gemstone_explorebtn page_btn_dark ">Explore All</a>
         @else
 
         @endif

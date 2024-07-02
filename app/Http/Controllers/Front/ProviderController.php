@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\libraries\dbHelpers;
 use App\libraries\emailHelpers;
 use App\libraries\helpers;
+use App\Models\Service;
 use App\Models\User;
 use App\Models\UserCode;
+use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -117,7 +120,8 @@ class ProviderController extends Controller
     }
 
 
-    public function providerLoginPage(){
+    public function providerLoginPage()
+    {
         if (empty(Auth::check())) {
             return view('frontend.provider.login');
         } else {
@@ -169,13 +173,112 @@ class ProviderController extends Controller
     // }
 
 
-    public function profilePage(){
-        if(!empty(Auth::check())){
-            $provider = Auth::user();
-            return view('frontend.provider.profile', compact('provider'));
-        }else{
+    public function profilePage()
+    {
+        if (!empty(Auth::check())) {
+            $providers = Auth::user();
+            $provider_id = $providers->id;
+            $provider = User::with('userDetails')->find($provider_id);
+            return view('frontend.provider.details', compact('provider'));
+        } else {
             return redirect()->route('provider.login');
         }
     }
 
+
+    public function profilePhoto(Request $request, $id)
+    {
+        $request->validate([
+            'images' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        $user_details = UserDetail::findOrFail($id);
+
+        if ($request->hasFile('images')) {
+            // $imagePath = public_path('images/user_images/'.$user_details->images);
+            // if(File::exists($imagePath)){
+            //     unlink($imagePath);
+            // }
+
+            $image_tmp = $request->file('images');
+            if ($image_tmp->isValid()) {
+                $time = time();
+                $image_name = $time . '_' . $image_tmp->getClientOriginalName();
+                $extension = $image_tmp->getClientOriginalExtension();
+                request()->images->move('images/user_images', $image_name);
+                $imageName = $image_name;
+                $user_details->images = $imageName;
+            }
+        }
+        $user_details->update();
+        return back()->with('success', 'Image Uploaded Successfully');
+
+        // $imageName = time().'.'.$request->images->extension();  
+        // $request->images->move(public_path('images'), $imageName);
+        // return back()->with('success', 'Image Uploaded Successfully')->with('image', $imageName);
+
+
+        // if (!empty(Auth::check())) {
+        //     return view('frontend.provider.profile', compact('provider'));
+        // } else {
+        //     return redirect()->route('provider.login');
+        // }
+    }
+
+
+    public function profileSetting()
+    {
+        if (!empty(Auth::check())) {
+            $provider = Auth::user();
+            $services = Service::all();
+            return view('frontend.provider.setting', compact('provider', 'services'));
+        } else {
+            return redirect()->route('provider.login');
+        }
+    }
+
+
+    public function serviceStore(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            // 'images' => 'required|image|mimes:jpeg,png,jpg,svg',
+            // 'date' => 'required',
+            // 'start_time' => 'required',
+            // 'end_time' => 'required',
+        ]);
+        return $request->all();
+        $data = Service::where('name', $request->name)->first();
+        if (empty($data)) {
+            $service = new Service();
+            $service->name = !empty($request->name) ? $request->name : "";
+            $slugname = str_replace(' ', '-', $request->name);
+            $service->slug = !empty($slugname) ? $slugname : "";
+            $service->description = !empty($request->description) ? $request->description : "";
+            $service->price     = !empty($request->price) ? $request->price     : "";
+            $service->save();
+        }
+    }
+
+
+    public function serviceDateTimeStore(Request $request)
+    {
+        $this->validate($request, [
+            // 'images' => 'required|image|mimes:jpeg,png,jpg,svg',
+            'service' => 'required',
+            'date' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
+        return $request->all();
+    }
+
+
+    public function providerProfileUpdate(Request $request, $id)
+    {
+        if (!empty(Auth::check())) {
+            return $request->all();
+        }
+    }
 }

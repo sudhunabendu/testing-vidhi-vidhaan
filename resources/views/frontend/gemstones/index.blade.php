@@ -718,7 +718,7 @@
 
                             });
                         } else {
-                            $('#getResult').html(
+                            $('#get_gemstones').html(
                                 '<div class="col-12"><h4>No gemstone found</h4></div>'
                             );
                         }

@@ -75,8 +75,16 @@ Route::get('user/auth', [IndexController::class, 'userAuth'])->name('user.auth')
 Route::post('/cart-store-gemstone',[CartController::class, 'addToCartGemstone'])->name('cart.store.gemstone');
 
 
+// Route::group(['middleware'=>['providerauth']],function(){
+    Route::get('/astro-profile',[ProviderController::class,'profilePage'])->name('provider.profile')->middleware('providerauth');
+    Route::post('/astro-profile-photo/{id}',[ProviderController::class,'profilePhoto'])->name('provider.profile.photo')->middleware('providerauth');
+    Route::post('/astro-profile-update/{id}',[ProviderController::class,'providerProfileUpdate'])->name('provider.profile.update')->middleware('providerauth');
+    Route::get('/astro-setting',[ProviderController::class,'profileSetting'])->name('provider.setting')->middleware('providerauth');
+    Route::post('/astro-service',[ProviderController::class,'serviceStore'])->name('provider.service')->middleware('providerauth');
+    Route::post('/astro-service-date-time',[ProviderController::class,'serviceDateTimeStore'])->name('provider.service.date.time')->middleware('providerauth');
+// });
 
-Route::get('/astro-profile',[ProviderController::class,'profilePage'])->name('provider.profile');
+
 Route::get('/astro-login',[ProviderController::class,'providerLoginPage'])->name('provider.login');
 Route::post('/astrologer-post-login',[ProviderController::class,'providerLogin'])->name('provider.post.login');
 Route::get('/astrologer-registration',[ProviderController::class,'registration'])->name('provider.registration');
@@ -94,6 +102,13 @@ Route::post('/password/submit-request', [AuthController::class, 'submitForgetPas
 Route::get('/password/reset/{token}', [AuthController::class, 'getresetPasswordForm'])->name('reset.password.getForm');
 Route::post('/reset-password', [AuthController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+
+
+
+
+
+
+// admin routes
 Route::group(['prefix'=>'dashboard','middleware'=>['auth','adminrestrictions']],function(){
     Route::get('/',[AdministratorIndexController::class,'index'])->name('dashboard');
 

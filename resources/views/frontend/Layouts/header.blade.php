@@ -20,23 +20,30 @@
     <div class="register-cart">
 
       @if(Session::has('user') || Session::has('provider'))
+        
       <div class="register-option">
         <div class="dropdown">
           <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             {{-- Profile --}}
             {{Session::get('user')->first_name ?? Session::get('provider')->first_name}}
-            {{-- {{Session::get('user')->first_name ?? 'Profile'}} --}}
           </button>
           {{-- @if(Session::has('provider'))
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="{{route('providerlogout')}}">Logout</a>
           </div>
           @else --}}
+          @if(Auth::user()->role_id == 3)
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="{{route('userlogout')}}">Logout</a>
           </div>
-          {{-- @endif --}}
+          @else
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{{route('provider.profile')}}">Profile</a>
+            <a class="dropdown-item" href="{{route('provider.setting')}}">Account Setting</a>
+            <a class="dropdown-item" href="{{route('userlogout')}}">Logout</a>
+          </div>
+          @endif
         </div>
       </div>
 

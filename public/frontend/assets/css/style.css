@@ -4590,7 +4590,7 @@ cart */
   background-color: rgba(33, 40, 50, 0.03);
   border-bottom: 1px solid rgba(33, 40, 50, 0.125);
 }
-.form-control, .dataTable-input {
+.edit-pro-start .form-control, .edit-pro-start .dataTable-input {
   display: block;
   width: 100%;
   padding: 0.875rem 1.125rem;
@@ -4600,7 +4600,7 @@ cart */
   color: #69707a;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #c5ccd6;
+  border: 1px solid #c5ccd6!important;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

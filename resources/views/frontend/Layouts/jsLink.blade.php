@@ -23,3 +23,5 @@
 @yield('aboutJs')
 @yield('filters_gemstones_by_category')
 @yield('gemstones_section_list')
+@yield('profile_astrologer')
+@yield('setting_astrologer')

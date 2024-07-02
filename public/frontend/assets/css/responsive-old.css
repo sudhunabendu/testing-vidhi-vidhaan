@@ -368,9 +368,17 @@
 
 }
 
-@media (max-width: 375px){
+@media (max-width: 380px){
 
-
+    .header_area .logo img {
+        max-height: 65px!important;
+    }
+    .header_area .logo {
+        max-width: 60px!important;
+    }
+    .register-cart .btn {
+        padding: 5px 10px!important;
+    }
     
 }
 

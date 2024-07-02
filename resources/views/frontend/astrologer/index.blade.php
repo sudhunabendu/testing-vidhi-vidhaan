@@ -11,7 +11,6 @@
          </div>
       </div>
    </div>
-
 </div>
 
 <div class="inner-testimonial-start">
@@ -22,17 +21,17 @@
       </div>
       <div class="row">
 
-         @foreach ($services as $service)
+         @foreach ($providers as $provider)
          <div class="col-lg-4 col-md-6">
             <div class="flip-card" tabIndex="0">
                <div class="flip-card-inner">
                   <div class="flip-card-front">
                      <div class="inner-page-astroimg">
-                        <img src="{{URL::asset('images/service_images/'.$service->images)}}" alt="">
+                        <img src="{{URL::asset('images/service_images/'.$provider->images)}}" alt="">
                      </div>
                      <div class="astro-inn-name-bx">
                         <div>
-                           <h4>{{$service->name}}</h4>
+                           <h4>{{$provider->first_name}}</h4>
                            <p>Master of Astrology </p>
                         </div>
                         <button class="btn inn-book-astro-btn"><img
@@ -43,13 +42,13 @@
                      <img src="{{URL::asset('frontend/assets/images/astrologerimg1.png')}}"
                         class="flip-card-back-new-img" alt="">
                      <div class="flip-card-astro">
-                        <img src="{{URL::asset('images/service_images/'.$service->images)}}" class="flipastro-img"
+                        <img src="{{URL::asset('images/service_images/'.$provider->images)}}" class="flipastro-img"
                            alt="">
                         <div class="flip-card-astroname">
-                           <h4>{{$service->name}}</h4>
+                           <h4>{{$provider->first_name}}</h4>
                            <p>Master of Astrology </p>
                         </div>
-                        <p class="flipastro-txt">{{ \Illuminate\Support\Str::limit($service->description, 150, '...')}}</p>
+                        <p class="flipastro-txt">{{ \Illuminate\Support\Str::limit($provider->description, 150, '...')}}</p>
                         {{-- <div class="flip-astro-datetime">
                            <i class="fa-regular fa-calendar"></i>
                            <div>
@@ -58,7 +57,7 @@
                            </div>
                         </div> --}}
                         <ul class="list-inline flip-astro-btn">
-                           <li><a href="{{route('astrologer.details',$service->slug)}}" class="btn">Consult me</a></li>
+                           <li><a href="{{route('astrologer.details',$provider->first_name)}}" class="btn">Consult me</a></li>
                            {{-- <li><a href="" class="btn">Add to Cart</a></li> --}}
                         </ul>
                      </div>
