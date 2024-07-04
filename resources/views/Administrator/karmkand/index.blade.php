@@ -51,7 +51,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <a href="{{route('admin.add.products')}}" class=" btn btn-info">+ Create Product</a>
+            <a href="{{route('admin.create.karmkands')}}" class=" btn btn-info">+ Create karmkand</a>
             {{-- <h3 class="card-title">DataTable with minimal features & hover style</h3> --}}
           </div>
           <!-- /.card-header -->
@@ -61,7 +61,7 @@
                 <tr>
                   <th>Sl No.</th>
                   <th>Image</th>
-                  <th>Product Name</th>
+                  <th>karmkand Name</th>
                   <th>Description</th>
                   <th>Price</th>
                   <th>Status</th>
@@ -71,29 +71,29 @@
               <?php $i=1; ?>
               <tbody>
                 @if(!empty($karmkands))
-                @foreach ($karmkands as $product)
+                @foreach ($karmkands as $karmkand)
                 <tr>
                   <td>{{$i++}}</td>
-                  <td><img src="{{URL::asset('images/product_images').'/'.$product->images}}" alt="" width="60px"
+                  <td><img src="{{URL::asset('images/karmkand_images').'/'.$karmkand->images}}" alt="" width="60px"
                       height="60px"></td>
-                  <td>{{$product->name}}</td>
-                  <td>{{ \Illuminate\Support\Str::limit($product->description, 80, '...')}}</td>
-                  <td>{{$product->price}}</td>
+                  <td>{{$karmkand->name}}</td>
+                  <td>{{ \Illuminate\Support\Str::limit($karmkand->description, 80, '...')}}</td>
+                  <td>{{$karmkand->price}}</td>
                   @php
 
-                  if ( $product->status == 'Active'):
+                  if ( $karmkand->status == 'Active'):
                   $color = 'success';
                   else:
                   $color = 'danger';
                   endif;
 
                   @endphp
-                  {{-- <td><span class="badge badge-{{$color}}">{{ucwords($product->status)}}</span>
+                  {{-- <td><span class="badge badge-{{$color}}">{{ucwords($karmkand->status)}}</span>
                   </td> --}}
                   <td>
                     {{-- <div class="card-body switch"> --}}
                       <div class="switch">
-                        <input type="checkbox" name="toogle" value="{{$product->id}}" {{$product->status=='Active' ?
+                        <input type="checkbox" name="toogle" value="{{$karmkand->id}}" {{$karmkand->status=='Active' ?
                         'checked' : ''}} data-toggle="toggle"
                         data-on="Active" data-off="Inactive" data-onstyle="success"
                         data-offstyle="danger">
@@ -106,14 +106,14 @@
                       </label> --}}
                   </td>
                   <td>
-                    <a href="{{route('admin.edit.products',$product->id)}}"><i class="fa fa-edit"></i></a>
+                    <a href="{{route('admin.edit.products',$karmkand->id)}}"><i class="fa fa-edit"></i></a>
                     {{-- <a style="color: red" href="{{route('admin.delete.products',$product->id)}}"><i class="fa fa-trash"></i></a> --}}
 
-                    <form style="margin-left: 36px; margin-top: -24px;" action="{{route('admin.delete.products',$product->id)}}" method="POST">
+                    <form style="margin-left: 36px; margin-top: -24px;" action="{{route('admin.delete.products',$karmkand->id)}}" method="POST">
 
                       @csrf
 
-                      <a href="" data-toggle="tooltip" title="delete" data-id="{{$product->id}}" style="color: red" data-placement="botton"><i class="far fa-trash-alt dltBtn"></i></a>
+                      <a href="" data-toggle="tooltip" title="delete" data-id="{{$karmkand->id}}" style="color: red" data-placement="botton"><i class="far fa-trash-alt dltBtn"></i></a>
 
                   </form>
                   </td>

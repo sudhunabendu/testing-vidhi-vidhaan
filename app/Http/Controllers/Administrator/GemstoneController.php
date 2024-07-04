@@ -21,7 +21,9 @@ class GemstoneController extends Controller
 
     public function create(){
         if (Auth::check()) {
-            $categories = Category::where('parent_id', '!=', 0)->get();
+            $categories = Category::where('parent_id',1)->get();
+            // return $categories;
+            // $categories = Category::where('parent_id', '!=', 0)->get();
             return view('administrator.gemstone.add',compact('categories'));
         } else {
             return redirect()->route('admin.login');

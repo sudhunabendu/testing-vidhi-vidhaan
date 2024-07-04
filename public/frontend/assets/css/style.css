@@ -2710,7 +2710,7 @@ outline: none;
 }
 .view_karamkand_dtl {
   padding: 35px;
-  box-shadow: 0px 0px 20px 8px #d2cccc2e;
+  box-shadow: 0px 0px 20px 8px #a5a5a52e;
   border-radius: 6px;
   margin-bottom: 100px;
 }
@@ -4700,4 +4700,9 @@ h4.upload_imagetext {
 
 /*uplaod image*/
 
+
+.karamkand_dtl_ul li{
+  display: inline-block;
+  margin-right: 15px;
+}
 

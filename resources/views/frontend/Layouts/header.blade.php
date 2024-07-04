@@ -40,7 +40,7 @@
           @else
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="{{route('provider.profile')}}">Profile</a>
-            <a class="dropdown-item" href="{{route('provider.setting')}}">Account Setting</a>
+            {{-- <a class="dropdown-item" href="{{route('provider.setting')}}">Account Setting</a> --}}
             <a class="dropdown-item" href="{{route('userlogout')}}">Logout</a>
           </div>
           @endif

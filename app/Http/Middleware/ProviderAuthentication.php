@@ -17,10 +17,14 @@ class ProviderAuthentication
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role_id == 4){
-            return $next($request);
+        if(!empty(Auth::check())){
+            if(Auth::user()->role_id == 4){
+                return $next($request);
+            }else{
+                return redirect()->route('home')->with('error','You are not authorized.');
+            }
         }else{
-            return redirect()->route('home')->with('error','You are not authorized.');
+            return redirect()->route('provider.login')->with('error','You are not logged in.');  // Redirect to login page if user not logged in
         }
     }
 }

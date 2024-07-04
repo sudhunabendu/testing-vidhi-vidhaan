@@ -27,7 +27,7 @@
                <div class="flip-card-inner">
                   <div class="flip-card-front">
                      <div class="inner-page-astroimg">
-                        <img src="{{URL::asset('images/service_images/'.$provider->images)}}" alt="">
+                        <img src="{{URL::asset('images/user_images/'.$provider->userDetails->images)}}" alt="">
                      </div>
                      <div class="astro-inn-name-bx">
                         <div>
@@ -35,14 +35,14 @@
                            <p>Master of Astrology </p>
                         </div>
                         <button class="btn inn-book-astro-btn"><img
-                              src="{{URL::asset('frontend/assets/images/up-arrow.png')}}" alt=""></button>
+                              src="{{URL::asset('images/user_images/'.$provider->userDetails->images)}}" alt=""></button>
                      </div>
                   </div>
                   <div class="flip-card-back">
-                     <img src="{{URL::asset('frontend/assets/images/astrologerimg1.png')}}"
+                     <img src="{{URL::asset('images/user_images/'.$provider->userDetails->images)}}"
                         class="flip-card-back-new-img" alt="">
                      <div class="flip-card-astro">
-                        <img src="{{URL::asset('images/service_images/'.$provider->images)}}" class="flipastro-img"
+                        <img src="{{URL::asset('images/user_images/'.$provider->userDetails->images)}}" class="flipastro-img"
                            alt="">
                         <div class="flip-card-astroname">
                            <h4>{{$provider->first_name}}</h4>

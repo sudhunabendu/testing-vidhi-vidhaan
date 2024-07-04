@@ -22,17 +22,22 @@
         <img class="star_starleftdown" src="{{URL::asset('frontend/assets/images/star.png')}}">
 
         <div class="karamkand_box_main_wrap">
-            <div class="karamkand_box mt-0">
-                <img src="{{URL::asset('frontend/assets/images/karamkandimage1.png')}}">
-                <div class="karamkand_box_main_title">
-                    <h3>Karamkand H1</h3>
-                    <h2>₹2.5k</h2>
-                </div>
-                <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de
-                    distractions.</p>
-                <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box ">
+            @if (count($karmkands) > 0)
+                @foreach ($karmkands as $karmkand)
+                    <div class="karamkand_box mt-0">
+                        <img src="{{URL::asset('images/karmkand_images/'.$karmkand->images)}}">
+                        <div class="karamkand_box_main_title">
+                            <h3>{{ucwords($karmkand->name)}}</h3>
+                            <h2>₹ {{$karmkand->price}}</h2>
+                        </div>
+                        <p>{{\Illuminate\Support\Str::limit($karmkand->description, 120, '...')}}</p>
+                        <a href="#" class="btn btn_line_dtl">View Details</a>
+                    </div>
+                @endforeach
+            @endif
+
+
+            {{-- <div class="karamkand_box ">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage2.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -42,8 +47,9 @@
                     distractions. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent
                     intentionnellement.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box">
+            </div> --}}
+
+            {{-- <div class="karamkand_box">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage3.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -52,8 +58,9 @@
                 <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de
                     distractions.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box">
+            </div> --}}
+
+            {{-- <div class="karamkand_box">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage4.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -62,8 +69,9 @@
                 <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de
                     distractions.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box">
+            </div> --}}
+
+            {{-- <div class="karamkand_box">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage5.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -72,8 +80,9 @@
                 <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de
                     distractions.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box">
+            </div> --}}
+
+            {{-- <div class="karamkand_box">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage6.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -82,8 +91,9 @@
                 <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de
                     distractions.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box">
+            </div> --}}
+
+            {{-- <div class="karamkand_box">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage1.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -92,8 +102,9 @@
                 <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de
                     distractions.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box ">
+            </div> --}}
+
+            {{-- <div class="karamkand_box ">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage2.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -103,8 +114,9 @@
                     distractions. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent
                     intentionnellement.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box">
+            </div> --}}
+
+            {{-- <div class="karamkand_box">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage3.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -113,8 +125,9 @@
                 <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de
                     distractions.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box">
+            </div> --}}
+
+            {{-- <div class="karamkand_box">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage4.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -123,8 +136,9 @@
                 <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de
                     distractions.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box">
+            </div> --}}
+
+            {{-- <div class="karamkand_box">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage5.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -133,8 +147,9 @@
                 <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de
                     distractions.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
-            <div class="karamkand_box">
+            </div> --}}
+
+            {{-- <div class="karamkand_box">
                 <img src="{{URL::asset('frontend/assets/images/karamkandimage6.png')}}">
                 <div class="karamkand_box_main_title">
                     <h3>Karamkand H1</h3>
@@ -143,7 +158,8 @@
                 <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de
                     distractions.</p>
                 <a href="#" class="btn btn_line_dtl">View Details</a>
-            </div>
+            </div> --}}
+
         </div>
     </div>
 </section>

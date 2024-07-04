@@ -37,8 +37,15 @@ Route::get('/user/account-verification/{user_email}/{registrationtoken}',[FrontA
 Route::get('/about',[IndexController::class, 'about'])->name('about');
 Route::get('/astrologer',[IndexController::class, 'astrologer'])->name('astrologer');
 Route::get('/astrologer/{slug}',[IndexController::class, 'astrologerDetails'])->name('astrologer.details');
+
+
+
 Route::get('/karamkand',[IndexController::class, 'karamkand'])->name('karamkand');
-Route::get('/karamkand-details',[IndexController::class, 'karamkandDetails'])->name('karamkand-details');
+Route::get('/karamkand/karamkand-cat/{slug}/', [IndexController::class, 'karamkandCategory'])->name('karamkand.category');
+Route::get('/karamkand-details/{slug}',[IndexController::class, 'karamkandDetails'])->name('karamkand-details');
+
+
+
 Route::get('/testimonial',[IndexController::class, 'testimonial'])->name('testimonial');
 Route::get('/contact',[IndexController::class, 'contact'])->name('contact');
 Route::get('/login',[FrontAuthController::class, 'login'])->name('login');
@@ -52,6 +59,11 @@ Route::get('/forget-password',[IndexController::class, 'ForgetPassword'])->name(
 Route::post('/user-password/submit-request', [IndexController::class, 'submitForgetPasswordForm'])->name('user.submit.request');
 Route::get('/user-password/reset/{token}', [IndexController::class, 'getresetPasswordForm'])->name('user.reset.password.getForm');
 Route::post('/user-reset-password', [IndexController::class, 'submitResetPasswordForm'])->name('user-reset.password.post');
+
+// country state and city
+Route::get('dropdown', [IndexController::class, 'country']);
+Route::post('api/fetch-states', [IndexController::class, 'fetchState'])->name('fetchState');
+Route::post('api/fetch-cities', [IndexController::class, 'fetchCity'])->name('fetchCity');
 
 // Route::get('/gemstones/gemstone-cat/{slug}/', [IndexController::class, 'gemesCategory'])->name('gemstone.category');
 // Route::get('/gemstones', [IndexController::class, 'gemstones'])->name('gemstones');
@@ -131,6 +143,8 @@ Route::group(['prefix'=>'dashboard','middleware'=>['auth','adminrestrictions']],
 
     // karmkands actions
     Route::get('/karmkands', [KarmkandController::class, 'index'])->name('admin.karmkands');
+    Route::get('/karmkands/add', [KarmkandController::class, 'createKarmkand'])->name('admin.create.karmkands');
+    Route::post('/karmkands/store', [KarmkandController::class, 'storeKarmkand'])->name('admin.store.karmkands');
 
     // product actions
     Route::get('/products', [ProductController::class, 'productsList'])->name('admin.products');

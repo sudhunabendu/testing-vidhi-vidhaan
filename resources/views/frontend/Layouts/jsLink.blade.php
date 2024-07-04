@@ -25,3 +25,4 @@
 @yield('gemstones_section_list')
 @yield('profile_astrologer')
 @yield('setting_astrologer')
+@yield('provider_detailsJS')

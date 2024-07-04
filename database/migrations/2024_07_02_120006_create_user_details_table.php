@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('images')->nullable();
             $table->date('dob')->nullable();
+            $table->decimal('price',10,2)->nullable();
+            $table->text('description')->nullable();
             $table->string('education')->nullable();
             $table->string('experience')->nullable();
             $table->bigInteger('country_id')->nullable();

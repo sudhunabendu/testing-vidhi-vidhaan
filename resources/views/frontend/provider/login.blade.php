@@ -61,7 +61,7 @@
                                 </div>
                                 <a href="{{route('user-forget-password')}}" class="forgot-pass-btn">Forgot Password</a>
                                 <button type="submit" class="btn btn-secondary page_btn_dark ">Login</button>
-                                <p class="sign-up-txt">Don't have an Account?<a href="{{route('registration')}}"> Sign
+                                <p class="sign-up-txt">Don't have an Account?<a href="{{route('provider.registration')}}"> Sign
                                         Up</a></p>
                             </form>
                         </div>

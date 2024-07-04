@@ -75,11 +75,13 @@
                 <div class="item">
                     <div class="service_carowsal">
                         <div class="service_carowsal_innr">
+                            <a href="{{route('karamkand.category',$karmkand->name)}}">
                             <img src="{{URL::asset('images/category_images/').'/'.$karmkand->images}}">
+                            </a>
                             <div class="service_carowsal_text">
                                 <h2>{{$karmkand->name}}</h2>
                                 <p>{{ \Illuminate\Support\Str::limit($karmkand->description, 200, '...')}}</p>
-                                <a href="#" class="btn btn_line">Book Now</a>
+                                {{-- <a href="#" class="btn btn_line">Book Now</a> --}}
                             </div>
                         </div>
                     </div>
@@ -162,7 +164,7 @@
                 </div>
             </div> --}}
         </div>
-        <a href="#" class="btn page_btn_dark explore_all">Explore All</a>
+        <a href="{{route('karamkand')}}" class="btn page_btn_dark explore_all">Explore All</a>
     </div>
 </section>
 
@@ -187,13 +189,14 @@
                 <div class="book_astrologer_carowsal owl-carousel owl-theme">
                     @if(count($providers) > 0)
                     @foreach ($providers as $provider)
+                    <a href="{{route('astrologer.details',$provider->first_name)}}">
                         <div class="item">
                             <div class="book_astrologer_carowsal_innr">
                                 <div class="astrologer_image_wrap">
                                     <img class="astrologer_imageborder"
                                         src="{{URL::asset('/frontend/assets/images/aboutleftimageborder.png')}}">
                                     <img class="astrologer_images"
-                                        src="{{URL::asset('/images/service_images/'.$provider->images)}}">
+                                        src="{{URL::asset('/images/user_images/'.$provider->userDetails->images)}}">
                                 </div>
                                 <div class="service_carowsal_text">
                                     <h2>{{ucfirst($provider->first_name) ." ".ucfirst($provider->last_name)}}</h2>
@@ -201,6 +204,8 @@
                                 </div>
                             </div>
                         </div>
+                    </a>
+                        
                     @endforeach
                     @else
                     <div class="item">

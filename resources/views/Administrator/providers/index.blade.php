@@ -90,7 +90,7 @@
                                             <option value="Approved">{{$provider->status}}</option>
                                             <option value="Reject">{{$provider->status}}</option>
                                         </select> --}}
-                                        <select name="status" id="select_status" data-pro-id="{{$provider->id}}" class="form-control">
+                                        <select name="status" id="select_status" data-pro-id="{{$provider->id}}" class="testing form-control">
                                             @foreach(config('enum.status') as $key => $value)
                                             <option class="color:" value="{{ $key }}" 
                                                 @if($provider->status == $key || old('status') == $key) selected @endif
@@ -199,11 +199,14 @@
 
 <script>
     $(document).ready(function(){
-        $('#select_status').on('change', function(){
+        // $('#select_status').on('change', function(){
+        $('.testing').on('change', function(){
             var status = $(this).val();
             var provider_id = $(this).data('pro-id');
             var token = "{{csrf_token()}}";
-            var path = "{{route('admin.provider.status_change')}}"
+            var path = "{{route('admin.provider.status_change')}}";
+            // console.log(status);
+            // return;
             $.ajax({
                 url:path,
                 type:"POST",

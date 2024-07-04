@@ -60,3 +60,4 @@
     @yield('categoryJS')
     @yield('addcategoryJS')
     @yield('gemstoneJS')
+    @yield('karmkandJs')

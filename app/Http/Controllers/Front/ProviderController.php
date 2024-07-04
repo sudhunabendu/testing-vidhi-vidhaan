@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\libraries\dbHelpers;
 use App\libraries\emailHelpers;
 use App\libraries\helpers;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Service;
+use App\Models\State;
 use App\Models\User;
 use App\Models\UserCode;
 use App\Models\UserDetail;
@@ -55,6 +58,7 @@ class ProviderController extends Controller
         } else {
             try {
                 $user = new User();
+                $userDetails = new UserDetail();
                 $user->first_name = !empty($request->first_name) ? $request->first_name : "";
                 $user->last_name = !empty($request->last_name) ? $request->last_name : "";
                 $user->mobile_number = !empty($request->full) ? $request->full : "";
@@ -64,6 +68,11 @@ class ProviderController extends Controller
                 $user->status = 'Pending';
                 $user->save();
                 $userId = $user->id;
+                if(!empty( $userId)){
+                    $userDetails->user_id = $userId;
+                    $userDetails->save();
+                }
+
                 /* GENERATE VERIFICATION CODE */
                 $verificationCode = dbHelpers::uniqueCode(4, 'user_codes', 'code', 'd');
                 if (!empty($verificationCode)) {
@@ -74,6 +83,7 @@ class ProviderController extends Controller
                     $userCode->created_at = date('Y-m-d H:i:s');
                     $userCode->save();
                 }
+
                 /* GENERATE REGISTRATION TOKEN */
                 $registrationToken = md5('3A5TM4P7' . $userId . $verificationCode);
                 $fullName = $user->first_name . ' ' . $user->last_name;
@@ -179,7 +189,10 @@ class ProviderController extends Controller
             $providers = Auth::user();
             $provider_id = $providers->id;
             $provider = User::with('userDetails')->find($provider_id);
-            return view('frontend.provider.details', compact('provider'));
+            $countries = Country::get(["name", "id"]);
+            $states = State::where('country_id', $provider->userDetails->country_id)->get();
+            $cities = City::where('state_id', $provider->userDetails->state_id)->get();
+            return view('frontend.provider.details', compact('provider','countries','states','cities'));
         } else {
             return redirect()->route('provider.login');
         }
@@ -275,10 +288,61 @@ class ProviderController extends Controller
     }
 
 
+   /**
+    * The function `providerProfileUpdate` updates a user's profile details based on the provided
+    * request data.
+    * 
+    * @param Request request The `providerProfileUpdate` function takes two parameters: `` and
+    * ``.
+    * @param id The `` parameter in the `providerProfileUpdate` function represents the unique
+    * identifier of the user whose profile is being updated. This identifier is used to fetch the user
+    * details from the database using Eloquent's `findOrFail` method. It is typically an integer value
+    * that uniquely identifies a specific user record
+    * 
+    * @return The `providerProfileUpdate` function is updating the user details based on the request
+    * data provided. If the user details are found and the update is successful, it will return a
+    * success message "Profile updated successfully" using `back()->with('success','Profile updated
+    * successfully')`. If the user details are not found or if there is an issue with the update
+    * process, it will return an error message "
+    */
     public function providerProfileUpdate(Request $request, $id)
     {
+        $request->validate([
+            'date_of_birth' => 'required|date',
+            'price' => 'required',
+            'description' => 'required',
+            'education' => 'required',
+            'experience' => 'required',
+            'post_code' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+        ]);
+        // return $request->all();
+
         if (!empty(Auth::check())) {
-            return $request->all();
+            // return $request->all();
+            $user_details = UserDetail::findOrFail($id);
+            if(!empty($user_details)){
+                $user_details->address =!empty($request->address)? $request->address : "";
+                $user_details->city_id =!empty($request->city)? $request->city : "";
+                $user_details->state_id =!empty($request->state)? $request->state : "";
+                $user_details->country_id =!empty($request->country)? $request->country : "";
+                $user_details->post_code =!empty($request->post_code)? $request->post_code : "";
+                // $user_details->dob =!empty($request->date_of_birth)? $request->date_of_birth : "";
+                $user_details->dob = date('Y-m-d H:i:s', strtotime($request->date_of_birth));
+                // return $user_details;
+                $user_details->education =!empty($request->education)? $request->education : "";
+                $user_details->experience =!empty($request->experience)? $request->experience : "";
+                $user_details->price =!empty($request->price)? $request->price : "";
+                $user_details->description =!empty($request->description)? $request->description : "";
+                // return $user_details;
+                $user_details->update();
+                return back()->with('success','Profile updated successfully');
+            }else{
+                return back()->with('error','Something went wrong');
+            }
+
         }
     }
 }

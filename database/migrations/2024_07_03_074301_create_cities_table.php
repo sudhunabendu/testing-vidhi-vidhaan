@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('karmkands', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('name');
-            $table->text('description');
-            $table->string('images');
-            $table->decimal('price',10,2);
-            $table->enum('status',['Active','Inactive'])->default('Active');
+            $table->bigInteger('state_id');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('karmkands');
+        Schema::dropIfExists('cities');
     }
 };

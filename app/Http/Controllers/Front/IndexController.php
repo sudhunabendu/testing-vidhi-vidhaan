@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Gemstone;
+use App\Models\Karmkand;
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +30,8 @@ class IndexController extends Controller
         $products = Category::with('gemstones')->where('parent_id',1)->limit(8)->get();
         $karmkands = Category::where('parent_id',2)->limit(8)->get();
         // $services = Service::limit(6)->get();
-        $providers = User::where('role_id',4)->get();
+        $providers = User::with('userDetails')->where(['role_id'=>4,'status'=>'Approved'])->get();
+        // return $providers;
         return view("frontend.home.index", compact('products', 'providers','karmkands'));
     }
 
@@ -44,14 +49,16 @@ class IndexController extends Controller
 
     public function astrologer()
     {
-        $providers = User::where('role_id',4)->get();
-        // return $provider;
+        $providers = User::with('userDetails')->where(['role_id'=>4,'status'=>'Approved'])->get();
         return view("frontend.astrologer.index", compact('providers'));
     }
 
 
     public function astrologerDetails($slug)
     {
+        $provider = User::with('userDetails')->where('first_name', $slug)->first();
+        $city = City::where('id',$provider->userDetails->city_id)->first();
+        return view("frontend.astrologer.details", compact('provider','city'));
         
     }
 
@@ -80,14 +87,38 @@ class IndexController extends Controller
 
     public function karamkand()
     {
-        return view("frontend.karamkand.index");
+        $karmkands = Karmkand::orderBy('id', 'asc')->get();
+        if(!empty($karmkands)) {
+            return view("frontend.karamkand.index",compact('karmkands'));
+        }
+        // return $karmkands;
+        
     }
 
 
-    public function karamkandDetails()
+
+    public function karamkandCategory(Request $request,$slug){
+        if(!empty($slug)){
+            $category = Category::where('name', $slug)->first();
+            $karmkands = Karmkand::where(['status' => 'Active', 'category_id' => $category->id])->get();
+            if(!empty($karmkands) && !empty($category)){
+                return view('frontend.karamkand.cat_by_karamkand',compact('karmkands','category'));
+            }
+        }
+    }
+
+
+    public function karamkandDetails(Request $request,$slug)
     {
-        return view("frontend.karamkand.karamkand-details");
+        $karmkand = Karmkand::where('name', $slug)->first();
+        if(!empty($karmkand)){
+            return view("frontend.karamkand.karamkand-details",compact('karmkand'));
+        }
+       
     }
+
+
+
     public function testimonial()
     {
         return view("frontend.testimonial.index");
@@ -299,11 +330,12 @@ class IndexController extends Controller
 
     public function gemesCategory(Request $request, $slug){
         $category = Category::with(['gemstones'])->where('name', $slug)->first();
-        $products = Gemstone::where(['status' => 'Active', 'category_id' => $category->id])->get();
-        if(!empty($products) && !empty($category)){
-            return view('frontend.gemstones.cat_by_gemstones',compact('products','category'));
+        if(!empty($slug)){
+            $products = Gemstone::where(['status' => 'Active', 'category_id' => $category->id])->get();
+            if(!empty($products) && !empty($category)){
+                return view('frontend.gemstones.cat_by_gemstones',compact('products','category'));
+            }
         }
-        
     }
     // public function gemesCategory(Request $request, $slug){
     //     $category = Category::with(['gemstones'])->where('name', $slug)->first();
@@ -447,5 +479,30 @@ class IndexController extends Controller
         $products = $query->get();
 
         return response()->json(['products'=>$products]);
+    }
+
+
+    // public function country()
+    // {
+    //     $countries = Country::get(["name", "id"]);
+    //     return view('frontend.provider.details', compact('countries'));
+    // }
+
+
+    public function fetchState(Request $request)
+    {
+        $data['states'] = State::where("country_id", $request->country_id)
+                                ->get(["name", "id"]);
+  
+        return response()->json($data);
+    }
+
+
+    public function fetchCity(Request $request)
+    {
+        $data['cities'] = City::where("state_id", $request->state_id)
+                                    ->get(["name", "id"]);
+                                      
+        return response()->json($data);
     }
 }
