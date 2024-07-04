@@ -7,6 +7,7 @@ use App\Http\Controllers\Administrator\GemstoneController;
 use App\Http\Controllers\Administrator\IndexController as AdministratorIndexController;
 use App\Http\Controllers\Administrator\KarmkandController;
 use App\Http\Controllers\Administrator\ProductController;
+use App\Http\Controllers\Administrator\ProductServiceBookingController as AdministratorProductServiceBookingController;
 use App\Http\Controllers\Administrator\ProviderController as AdministratorProviderController;
 use App\Http\Controllers\Administrator\ServiceController;
 use App\Http\Controllers\Administrator\UserController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Front\AuthController as FrontAuthController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\IndexController;
+use App\Http\Controllers\Front\ProductServiceBookingController;
 use App\Http\Controllers\Front\ProviderController;
 use Illuminate\Support\Facades\Route;
 
@@ -115,9 +117,8 @@ Route::get('/password/reset/{token}', [AuthController::class, 'getresetPasswordF
 Route::post('/reset-password', [AuthController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
-
-
-
+// Booking routes
+Route::post('/service-booking',[ProductServiceBookingController::class,'serviceBooking'])->name('service.booking');
 
 
 // admin routes
@@ -177,6 +178,11 @@ Route::group(['prefix'=>'dashboard','middleware'=>['auth','adminrestrictions']],
     Route::get('/services', [ServiceController::class, 'index'])->name('admin.services');
     Route::get('/services/create', [ServiceController::class, 'create'])->name('admin.slot-bookings-create');
     Route::post('/services/store', [ServiceController::class, 'store'])->name('admin.slot-bookings-store');
+
+
+    // booking actions
+    Route::get('/bookings', [AdministratorProductServiceBookingController::class, 'index'])->name('admin.bookings');
+    Route::get('/bookings/{id}', [AdministratorProductServiceBookingController::class, 'getBookingById'])->name('admin.bookings.show');
 });
 
 

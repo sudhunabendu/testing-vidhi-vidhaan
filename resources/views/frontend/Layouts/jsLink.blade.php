@@ -9,6 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{URL::asset('administrator/assets/js/jquery.alphanum.js')}}"></script>
 
+
 <script>
    new WOW().init();
 </script>
@@ -26,3 +27,4 @@
 @yield('profile_astrologer')
 @yield('setting_astrologer')
 @yield('provider_detailsJS')
+@yield('astro_details')

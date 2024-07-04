@@ -29,3 +29,5 @@
 @yield('editProduct')
 @yield('categoryCSS')
 @yield('gemstoneCSS')
+@yield('bookingCSS')
+@yield('astroCss')

@@ -2603,7 +2603,7 @@ outline: none;
 }
 
 .karamkand_box {
-  margin:20px 10px;
+  margin:20px 0px;
   border: 1px solid #DED8DA;
   padding: 20px;
   border-radius: 6px;
@@ -4706,3 +4706,16 @@ h4.upload_imagetext {
   margin-right: 15px;
 }
 
+/* new css added 04.07.2024 */
+.book_astrologer_modalfrm .form-group .form-control {
+  border: 1px solid #c2c2c2;
+  color: #000;
+}
+/* .book_astrologer_modalfrm .form-group select {
+  border: 1px solid #c2c2c2;
+  color: #000;
+}
+.book_astrologer_modalfrm .form-group textarea {
+  border: 1px solid #c2c2c2;
+  color: #000;
+} */

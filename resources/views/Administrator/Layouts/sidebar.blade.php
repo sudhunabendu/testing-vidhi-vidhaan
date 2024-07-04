@@ -147,6 +147,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.bookings')}}" class="nav-link {{Request::is('dashboard/bookings*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-address-book"></i>
+                        <p>
+                            Astrologer Booking
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                    </a>
+                </li>
 
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
