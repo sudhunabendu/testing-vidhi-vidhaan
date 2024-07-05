@@ -88,14 +88,18 @@ class helpers {
         $emailBody = array();
         if (!empty($templateCode)) {
             $data = dbHelpers::templateData($templateCode);
-            // return $data;
             $emailSubject = (!empty($data['subject']) && $data['subject'] != 'New Notification From Vidhi Vidhaan') ? $data['subject'] : $templateArray[1];
-            // return $emailSubject;
+            // $smsBody = (!empty($data['sms_body'])) ? $data['sms_body'] : '';
+            // $isSms = (!empty($data['is_sms'])) ? $data['is_sms'] : '';
+            // $pushBody = (!empty($data['push_body'])) ? $data['push_body'] : '';
+            // $isPush = (!empty($data['is_push'])) ? $data['is_push'] : '';
             if (count($searchText) > 0) {
                 $subject = str_replace($searchText, $replaceText, $emailSubject);
+                // $sms = str_replace($searchText, $replaceText, $smsBody);
                 $body = str_replace($searchText, $replaceText, $data['email_body']);
             }
             $emailBody = array('body' => $body, 'subject' => $subject);
+            // $emailBody = array('body' => $body, 'subject' => $subject, 'sms' => $sms, 'isSms' => $isSms, 'pushBody' => $pushBody, 'isPush' => $isPush);
         } else {
             return false;
         }

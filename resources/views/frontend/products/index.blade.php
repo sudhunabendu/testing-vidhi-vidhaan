@@ -22,10 +22,12 @@
         <img class="star_starlefttop" src="{{URL::asset('/frontend/assets/images/star.png')}}">
         <img class="star_starleftdown" src="{{URL::asset('/frontend/assets/images/star.png')}}">
 
-        <div class="karamkand_box_main_wrap">
+        <div class="row">
             @if(count($products)>0)
             @foreach ($products as $product)
-            <div class="karamkand_box mt-0">
+            <div class="col-lg-4">
+
+            <div class="karamkand_box ">
                 <img src="{{URL::asset('images/product_images/'.$product->images)}}">
                 <div class="karamkand_box_main_title">
                     <h3>{{$product->name}}</h3>
@@ -33,6 +35,7 @@
                 </div>
                 <p>{{ \Illuminate\Support\Str::limit($product->description, 80, '...')}}</p>
                 <a href="#" data-quantity="1" data-product-id="{{$product->id}}" id="add_to_cart{{$product->id}}" class="add_to_cart btn btn_line_dtl">Add To Cart</a>
+            </div>
             </div>
             @endforeach 
             @endif

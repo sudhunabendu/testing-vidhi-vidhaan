@@ -81,28 +81,29 @@
         </div>
         <div class="aboutpage_quotes_outer">
             <div class="aboutpage_quotes_slider owl-carousel owl-theme">
+                @foreach ($providers as $item)
+                <div class="item">
+                    <div class="astrologer_quots_innr_dtl">
+                        <div class="astroloder_quotes">
+                            <p>{{\Illuminate\Support\Str::limit($item->userDetails->description, 250, '...')}}</p>
+                            <img src="{{URL::asset('/images/user_images/'.$item->userDetails->images)}}">
+                            <h4>{{$item->first_name. " ".$item->last_name}}</h4>
+                            <h6>{{$item->first_name. " ".$item->last_name}} (Master of Astrology)</h6>
+                            <img class="arrow_up_quote" src="{{URL::asset('/images/user_images/'.$item->userDetails->images)}}">
+                        </div>
+                        <div class="astroloder_img">
+                            <img src="{{URL::asset('/images/user_images/'.$item->userDetails->images)}}">
+                        </div>
+                        <div class="persn_dtl">
+                            <h2>{{$item->first_name. " ".$item->last_name}}</h2>
+                            <h6>Master of Astrology </h6>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                
 
-                <div class="item">
-                    <div class="astrologer_quots_innr_dtl">
-                        <div class="astroloder_quotes">
-                            <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est
-                                source de distractions, et empêche de se concentrer sur la mise en page elle-même.
-                                L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte.</p>
-                            <img src="{{URL::asset('frontend/assets/images/quotesimage1.png')}}">
-                            <h4>Sastri Guru</h4>
-                            <h6>Sastri Guru (Master of Astrology)</h6>
-                            <img class="arrow_up_quote" src="{{URL::asset('frontend/assets/images/arrowup.png')}}">
-                        </div>
-                        <div class="astroloder_img">
-                            <img src="{{URL::asset('frontend/assets/images/quotesimage1.png')}}">
-                        </div>
-                        <div class="persn_dtl">
-                            <h2>Sasthri Guru</h2>
-                            <h6>Master of Astrology </h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
+                {{-- <div class="item">
                     <div class="astrologer_quots_innr_dtl">
                         <div class="astroloder_quotes">
                             <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est
@@ -122,8 +123,9 @@
                             <h6>Master of Astrology </h6>
                         </div>
                     </div>
-                </div>
-                <div class="item">
+                </div> --}}
+
+                {{-- <div class="item">
                     <div class="astrologer_quots_innr_dtl">
                         <div class="astroloder_quotes">
                             <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est
@@ -142,8 +144,9 @@
                             <h6>Master of Astrology </h6>
                         </div>
                     </div>
-                </div>
-                <div class="item">
+                </div> --}}
+
+                {{-- <div class="item">
                     <div class="astrologer_quots_innr_dtl">
                         <div class="astroloder_quotes">
                             <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est
@@ -162,8 +165,9 @@
                             <h6>Master of Astrology </h6>
                         </div>
                     </div>
-                </div>
-                <div class="item">
+                </div> --}}
+
+                {{-- <div class="item">
                     <div class="astrologer_quots_innr_dtl">
                         <div class="astroloder_quotes">
                             <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est
@@ -183,8 +187,9 @@
                             <h6>Master of Astrology </h6>
                         </div>
                     </div>
-                </div>
-                <div class="item">
+                </div> --}}
+
+                {{-- <div class="item">
                     <div class="astrologer_quots_innr_dtl">
                         <div class="astroloder_quotes">
                             <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est
@@ -203,7 +208,8 @@
                             <h6>Master of Astrology </h6>
                         </div>
                     </div>
-                </div>
+                </div> --}}
+
             </div>
         </div>
     </div>
@@ -217,24 +223,26 @@
             </h2>
         </div>
 
-        @if(count($products) > 0)
+        @if(count($gemstones) > 0)
         <div class="buy_gemstone_carowsal owl-carousel owl-theme">
 
-            @foreach ($products as $product)
-            <div class="item">
-                <div class="buy_gemstone_carowsal_innr gemstone_border_top">
-                    <img src="{{URL::asset('images/product_images/').'/'.$product->images}}">
-                    <div class="buy_gemstone_text">
-                        <h2>{{ucfirst($product->name)}}</h2>
-                        <p class="text-center" style="color: #411e40">₹ {{$product->price}}</p>
-                        <a href="#" data-quantity="1" data-product-id="{{$product->id}}"
-                            id="add_to_cart{{$product->id}}" class="add_to_cart btn btn_line gemstone_buybtn">Add To
-                            Cart</a>
-                        {{-- <a href="#" class="btn btn_line gemstone_buybtn">Buy Now</a> --}}
+            @foreach ($gemstones as $gemstone)
+               
+                    <div class="item">
+                        <div class="buy_gemstone_carowsal_innr gemstone_border_top">
+                            <img src="{{URL::asset('images/product_images/').'/'.$gemstone->images}}">
+                            <div class="buy_gemstone_text">
+                                <h2>{{ucfirst($gemstone->name)}}</h2>
+                                <p class="text-center" style="color: #411e40">₹ {{$gemstone->price}}</p>
+                                <a href="#" data-quantity="1" data-product-id="{{$gemstone->id}}"
+                                    id="add_to_cart{{$gemstone->id}}" class="add_to_cart btn btn_line gemstone_buybtn">Add To
+                                    Cart</a>
+                                {{-- <a href="#" class="btn btn_line gemstone_buybtn">Buy Now</a> --}}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            @endforeach
+                @endforeach
+          
 
             {{-- <div class="item">
                 <div class="buy_gemstone_carowsal_innr gemstone_border_top">
@@ -584,7 +592,7 @@
         var product_id = $(this).data('product-id');
         var product_qty = $(this).data('quantity');
         var token = "{{csrf_token()}}";
-        var path = "{{route('cart.store')}}";
+        var path = "{{route('cart.store.gemstone')}}";
         $.ajax({
             url : path,
             type: 'POST',

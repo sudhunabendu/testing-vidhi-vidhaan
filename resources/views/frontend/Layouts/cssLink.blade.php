@@ -32,3 +32,5 @@
 @yield('filterCss')
 @yield('cat_by_gemstones')
 @yield('fil_gemstones')
+@yield('karmkandCss')
+@yield('astro_details_CSS')

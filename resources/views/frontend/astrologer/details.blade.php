@@ -2,6 +2,32 @@
 
 @section('content')
 
+@section('astro_details_CSS')
+<style>
+   .whatsapp-button {
+       display: inline-flex;
+       align-items: center;
+       justify-content: center;
+       background-color: #25D366;
+       color: white;
+       padding: 10px 20px;
+       border-radius: 5px;
+       text-decoration: none;
+       font-size: 16px;
+       transition: background-color 0.3s ease;
+       border-radius: 25px;
+   }
+
+   .whatsapp-button:hover {
+       background-color: #1EBE57;
+   }
+
+   .whatsapp-button i {
+       margin-right: 10px;
+   }
+</style>
+@endsection
+
 <div class="banner-start inner-banner-start"
    style="background-image: url({{URL::asset('frontend/assets/images/astrologer-banner.png')}})">
    <div class="container">
@@ -88,6 +114,8 @@
                   </ul>
 
                   <h6>Book this astrologer at : <span>+91 7859658745</span></h6>
+                  <a href="https://api.whatsapp.com/send?phone=8583069106" target="_blank" class="whatsapp-button"><i class="fab fa-whatsapp"></i>Book Online Astrologer<br>
+                     <strong>Chat with me</strong></a>
                   {{-- <p>Specialization in Astrology</p> --}}
                   {{-- <p>{{$provider->description}}</p> --}}
                   <div class="choose_your_slot">

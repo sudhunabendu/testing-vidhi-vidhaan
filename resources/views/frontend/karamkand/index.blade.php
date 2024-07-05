@@ -26,7 +26,7 @@
                 @foreach ($karmkands as $karmkand)
                 <div class="col-lg-4">
                     <div class="karamkand_box mt-0">
-                        <a href="{{route('karamkand-details',$karmkand->name)}}">
+                        <a href="{{route('karamkand-details',$karmkand->slug)}}">
                             <img src="{{URL::asset('images/karmkand_images/'.$karmkand->images)}}">
                         </a>
                         <div class="karamkand_box_main_title">
@@ -34,7 +34,7 @@
                             <h2>₹ {{$karmkand->price}}</h2>
                         </div>
                         <p>{{\Illuminate\Support\Str::limit($karmkand->description, 120, '...')}}</p>
-                        <a href="{{route('karamkand-details',$karmkand->name)}}" class="btn btn_line_dtl">View Details</a>
+                        <a href="{{route('karamkand-details',$karmkand->slug)}}" class="btn btn_line_dtl">View Details</a>
                     </div>
                 </div>
                 @endforeach

@@ -42,8 +42,11 @@ class IndexController extends Controller
 
     public function about()
     {   $products = Product::limit(8)->get();
-        $services = Service::limit(6)->get();
-        return view("frontend.about.index", compact('products', 'services'));
+        // $services = Service::limit(6)->get();
+        $gemstones = Gemstone::all();
+        // return $gemstones;
+        $providers = User::with('userDetails')->where(['role_id'=>4,'status'=>'Approved'])->get();
+        return view("frontend.about.index", compact('products','providers','gemstones'));
     }
 
 
@@ -99,7 +102,7 @@ class IndexController extends Controller
 
     public function karamkandCategory(Request $request,$slug){
         if(!empty($slug)){
-            $category = Category::where('name', $slug)->first();
+            $category = Category::where('slug', $slug)->first();
             $karmkands = Karmkand::where(['status' => 'Active', 'category_id' => $category->id])->get();
             if(!empty($karmkands) && !empty($category)){
                 return view('frontend.karamkand.cat_by_karamkand',compact('karmkands','category'));
@@ -110,9 +113,10 @@ class IndexController extends Controller
 
     public function karamkandDetails(Request $request,$slug)
     {
-        $karmkand = Karmkand::where('name', $slug)->first();
-        if(!empty($karmkand)){
-            return view("frontend.karamkand.karamkand-details",compact('karmkand'));
+        $karmkand = Karmkand::where('slug', $slug)->first();
+        $karmkands = Karmkand::orderBy('id', 'asc')->get();
+        if(!empty($karmkand) && !empty($karmkands)){
+            return view("frontend.karamkand.karamkand-details",compact('karmkand','karmkands'));
         }
        
     }
@@ -443,9 +447,9 @@ class IndexController extends Controller
     * loading. The `` variable contains up to 8 categories that have a parent_id of 1.
     */
     public function gemstones(){
-        $categories = Category::with('gemstones')->get();
+        $gemstones = Category::with('gemstones')->get();
         $category = Category::where('parent_id',1)->limit(8)->get();
-        return view('frontend.gemstones.index',compact('categories','category'));
+        return view('frontend.gemstones.index',compact('gemstones','category'));
     }
 
 

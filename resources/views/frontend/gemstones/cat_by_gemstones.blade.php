@@ -471,6 +471,21 @@
                 overflow: inherit;
             }
         }
+
+        .slider-box input {
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px 15px;
+}
+.slide_range-strt {
+    padding-left: 10px;
+}
+.wrapper .btn {
+    color: #fff!important;
+    font-size: 18px;
+}
     </style>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -508,7 +523,9 @@
                                     <div class="slider-box">
                                         <h5 class="font-weight-bold">Price Range:</h5>
                                         <input type="text" id="priceRange" readonly>
-                                        <div id="slider-range" class="slider"></div>
+                                        <div class="slide_range-strt">
+                                        <div id="slider-range" class=""></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -520,7 +537,9 @@
                                     <div class="slider-box">
                                         <h5 class="font-weight-bold">Carate Range: </h5>
                                         <input type="text" id="weight_amount" readonly>
+                                        <div class="slide_range-strt">
                                         <div id="weight-slider-range"></div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -529,9 +548,10 @@
                         </div>
 
                     </form>
-                    <div class="py-4">
-                        <button class="btn btn-info" id="filter-button">Filter</button>
-                    </div>
+                </div>
+                    <div class="py-4 pl-3">
+                        <button class="page_btn_dark btn" id="filter-button">Filter</button>
+                   
 
                 </div>
             </section>

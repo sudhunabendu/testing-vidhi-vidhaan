@@ -138,15 +138,16 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+
+                {{-- <li class="nav-item">
                     <a href="{{route('admin.services')}}" class="nav-link {{Request::is('dashboard/services*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-address-book"></i>
                         <p>
                             Service Management
-                            {{-- <span class="right badge badge-danger">New</span> --}}
                         </p>
                     </a>
-                </li>
+                </li> --}}
+
                 <li class="nav-item">
                     <a href="{{route('admin.bookings')}}" class="nav-link {{Request::is('dashboard/bookings*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-address-book"></i>

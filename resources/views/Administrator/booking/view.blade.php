@@ -31,19 +31,21 @@
             <div class="col-sm-6">
                 <h1>
                     Astrologer Booking | Management
-                    <small>new</small>
+                    {{-- <small>new</small> --}}
                 </h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Navbar & Tabs</li>
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+                    <li class="breadcrumb-item active">Astrologer Booking</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
-
+<div class="ttt-toast">
+  @include('Administrator.Layouts.notify')
+</div>
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">

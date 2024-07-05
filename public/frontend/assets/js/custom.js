@@ -49,8 +49,7 @@ $('.testimonial-slider').owlCarousel({
     }
 });
 
-
-
+var baseUrl = "http://localhost/testing-vidhi-vidhan/public/";
          
 // home page service js
 $('.carowsal_rotetion_wrap').owlCarousel({

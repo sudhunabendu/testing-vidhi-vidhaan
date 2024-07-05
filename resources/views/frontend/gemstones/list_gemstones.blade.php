@@ -1,5 +1,5 @@
-@foreach ($categories as $category)
-        @foreach ($category->gemstones as $item)
+@foreach ($gemstones as $gemstone)
+        @foreach ($gemstone->gemstones as $item)
             <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1">
                 <div class="card"> <img class="card-img-top"
                         src="{{ URL::asset('images/product_images/' . $item->images) }}">
@@ -15,7 +15,7 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-between pt-3">
                             <div class="d-flex flex-column">
-                                {{-- {{$category->name}} --}}
+                                {{-- {{$gemstone->name}} --}}
                                 <p>Carat : {{ $item->weight }} </p>
                                 <div class="info_about_title">&#8377; {{ $item->price }} </div>
                             </div>

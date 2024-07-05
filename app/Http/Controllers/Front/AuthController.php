@@ -27,14 +27,14 @@ class AuthController extends Controller
         $this->_frontendUrl = env("FRONTEND_URL");
     }
 
-   /**
-    * The login function checks if the user is authenticated and either displays the login view or
-    * redirects to the home page.
-    * 
-    * @return If the user is not authenticated (not logged in), the function will return the view
-    * 'frontend.auth.login'. If the user is already authenticated, the function will redirect to the
-    * 'home' route.
-    */
+    /**
+     * The login function checks if the user is authenticated and either displays the login view or
+     * redirects to the home page.
+     * 
+     * @return If the user is not authenticated (not logged in), the function will return the view
+     * 'frontend.auth.login'. If the user is already authenticated, the function will redirect to the
+     * 'home' route.
+     */
     public function login()
     {
         if (empty(Auth::check())) {
@@ -44,14 +44,14 @@ class AuthController extends Controller
         }
     }
 
-   /**
-    * The `registration` function checks if the user is not authenticated and then either displays the
-    * registration form with a list of countries or redirects to the home page.
-    * 
-    * @return If the user is not authenticated (not logged in), the function will return the view
-    * 'frontend.auth.register' with the countries data passed to it. If the user is already
-    * authenticated, the function will redirect to the 'home' route.
-    */
+    /**
+     * The `registration` function checks if the user is not authenticated and then either displays the
+     * registration form with a list of countries or redirects to the home page.
+     * 
+     * @return If the user is not authenticated (not logged in), the function will return the view
+     * 'frontend.auth.register' with the countries data passed to it. If the user is already
+     * authenticated, the function will redirect to the 'home' route.
+     */
     public function registration()
     {
         if (empty(Auth::check())) {
@@ -108,20 +108,20 @@ class AuthController extends Controller
     }
 
 
-  /**
-   * The userRegister function in PHP validates user registration data, creates a new user account,
-   * generates a verification code and registration token, sends a verification email, and handles
-   * error cases.
-   * 
-   * @param Request request The `userRegister` function is a controller method that handles the
-   * registration process for a user. It takes input data from a `Request` object, validates the input
-   * fields, creates a new user record in the database, generates a verification code and registration
-   * token, sends a verification email to the user,
-   * 
-   * @return The function `userRegister` is returning a redirect response. If the registration is
-   * successful, it redirects the user to the login route with a success message. If there is an error
-   * during the registration process, it redirects the user back with an error message.
-   */
+    /**
+     * The userRegister function in PHP validates user registration data, creates a new user account,
+     * generates a verification code and registration token, sends a verification email, and handles
+     * error cases.
+     * 
+     * @param Request request The `userRegister` function is a controller method that handles the
+     * registration process for a user. It takes input data from a `Request` object, validates the input
+     * fields, creates a new user record in the database, generates a verification code and registration
+     * token, sends a verification email to the user,
+     * 
+     * @return The function `userRegister` is returning a redirect response. If the registration is
+     * successful, it redirects the user to the login route with a success message. If there is an error
+     * during the registration process, it redirects the user back with an error message.
+     */
     public function userRegister(Request $request)
     {
         $this->validate($request, [
@@ -138,88 +138,69 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Already Registered');
         } else {
             try {
-                $user = new User();
-                $user->first_name = !empty($request->first_name) ? $request->first_name : "";
-                $user->last_name = !empty($request->last_name) ? $request->last_name : "";
-                // $user->dial_code = !empty($request->dial_code) ? $request->dial_code : "";
-                // $user->mobile_number = !empty($request->mobile_number) ? $request->mobile_number : "";
-                $user->mobile_number = !empty($request->full) ? $request->full : "";
-                $user->email = !empty($request->email) ? $request->email : "";
-                $user->password = Hash::make($request->password);
-                $user->role_id = 3;
-                $user->save();
-                $userId = $user->id;
-                /* GENERATE VERIFICATION CODE */
-                $verificationCode = dbHelpers::uniqueCode(4, 'user_codes', 'code', 'd');
-                if (!empty($verificationCode)) {
-                    $userCode = new UserCode();
-                    $userCode->user_id = $userId;
-                    $userCode->type = 'Registration';
-                    $userCode->code = $verificationCode;
-                    $userCode->created_at = date('Y-m-d H:i:s');
-                    $userCode->save();
-                }
-                /* GENERATE REGISTRATION TOKEN */
-                $registrationToken = md5('3A5TM4P7' . $userId . $verificationCode);
-                $fullName = $user->first_name . ' ' . $user->last_name;
-                $email = $user->email;
-                User::where('id', $userId)->update(array('registration_token' => $registrationToken));
-                $verificationLink = $this->_frontendUrl . 'user/account-verification/' . $email . '/' . $registrationToken;
-                $link = "<a href='" . $verificationLink . "'>Verify Account</a>";
-                $searchArr = array('[FULLNAME]', '[NAME]', '[EMAIL]', '[PASSWORD]', '[LINK]', '[VERIFICATIONCODE]', '[SIGNATURE]');
-                $replaceArr = array($fullName, $fullName, $user->email, $request->password, $link, $verificationCode, "Vidhi Vidhaan");
-                $emailData = helpers::emailTemplate("Template 3", $searchArr, $replaceArr);
-                if (!empty($emailData)) {
-                    $toEmail = $user->email;
-                    $toName = $user->first_name;
-                    $subject = !empty($emailData['subject']) ? $emailData['subject'] : '';
+                $userMobileCheck = User::where('mobile_number', $request->full)->first();
+                if (!empty($userMobileCheck)) {
+                    return redirect()->back()->with('error', 'This mobile number already exists in account.');
+                } else {
+                    $user = new User();
+                    $user->first_name = !empty($request->first_name) ? $request->first_name : "";
+                    $user->last_name = !empty($request->last_name) ? $request->last_name : "";
+                    // $user->dial_code = !empty($request->dial_code) ? $request->dial_code : "";
+                    // $user->mobile_number = !empty($request->mobile_number) ? $request->mobile_number : "";
+                    $user->mobile_number = !empty($request->full) ? $request->full : "";
+                    $user->email = !empty($request->email) ? $request->email : "";
+                    $user->password = Hash::make($request->password);
+                    $user->role_id = 3;
+                    $user->save();
+                    $userId = $user->id;
+                    /* GENERATE VERIFICATION CODE */
+                    $verificationCode = dbHelpers::uniqueCode(4, 'user_codes', 'code', 'd');
+                    if (!empty($verificationCode)) {
+                        $userCode = new UserCode();
+                        $userCode->user_id = $userId;
+                        $userCode->type = 'Registration';
+                        $userCode->code = $verificationCode;
+                        $userCode->created_at = date('Y-m-d H:i:s');
+                        $userCode->save();
+                    }
+                    /* GENERATE REGISTRATION TOKEN */
+                    $registrationToken = md5('3A5TM4P7' . $userId . $verificationCode);
+                    $fullName = $user->first_name . ' ' . $user->last_name;
+                    $email = $user->email;
+                    User::where('id', $userId)->update(array('registration_token' => $registrationToken));
+                    $verificationLink = $this->_frontendUrl . 'user/account-verification/' . $email . '/' . $registrationToken;
+                    $link = "<a href='" . $verificationLink . "'>Verify Account</a>";
+                    $searchArr = array('[FULLNAME]', '[NAME]', '[EMAIL]', '[PASSWORD]', '[LINK]', '[VERIFICATIONCODE]', '[SIGNATURE]');
+                    $replaceArr = array($fullName, $fullName, $user->email, $request->password, $link, $verificationCode, "Vidhi Vidhaan");
+                    $emailData = helpers::emailTemplate("Template 3", $searchArr, $replaceArr);
+                    if (!empty($emailData)) {
+                        $toEmail = $user->email;
+                        $toName = $user->first_name;
+                        $subject = !empty($emailData['subject']) ? $emailData['subject'] : '';
 
-                    /* SEND EMAIL */
-                    emailHelpers::sendEmailNotification($emailData, $toEmail, $toName, $subject);
-                    return redirect()->route('login')->with('success', 'Congratulations, Your account has been successfully created. Please verify your email address.');
-                }
-
-                // $searchArr = array(
-                //     '[NAME]',
-                //     '[FULLNAME]',
-                // );
-                // $replaceArr = array(
-                //     $user->email,
-                //     $user->first_name . ' ' . $user->last_name,
-                // );
-
-                //  $emailData = helpers::emailTemplate("Template 2", $searchArr, $replaceArr);
-
-                // if (!empty($emailData)) {
-                //     $fullName = $user->first_name . " " . $user->last_name;
-                //     $toEmail = !empty($user->email) ? $user->email : "";
-                //     $toName  = !empty($fullName) ? $fullName : "";
-                //     $subject = $emailData['subject'];
-                //     emailHelpers::sendEmailNotification($emailData, $toEmail, $toName, $subject);
-                //     return redirect()->route('login')->with('success', 'Congratulations, Your account has been successfully created.');
-
-                // }
-                else {
-                    return redirect()->back()->with('error', 'Something went wrong');
+                        /* SEND EMAIL */
+                        emailHelpers::sendEmailNotification($emailData, $toEmail, $toName, $subject);
+                        return redirect()->route('login')->with('success', 'Congratulations, Your account has been successfully created. Please verify your email address.');
+                    }
                 }
             } catch (\Throwable $th) {
                 // throw $th;
-                return redirect()->back()->with('error', $th->getMessage());
+                return redirect()->back()->with(['error' => 201, 'response' => 'Mobile number is not valid, we are unable to deliver.', 'server_message' => $th->getMessage()]);
             }
         }
     }
 
 
-  /**
-   * The function logs out the user, clears session data, and redirects to the home page with a success
-   * message.
-   * 
-   * @return A redirection to the 'home' route with a success message "Logout Successfully" is being
-   * returned.
-   */
+    /**
+     * The function logs out the user, clears session data, and redirects to the home page with a success
+     * message.
+     * 
+     * @return A redirection to the 'home' route with a success message "Logout Successfully" is being
+     * returned.
+     */
     public function logout()
     {
-        Session::forget(['user','provider']);
+        Session::forget(['user', 'provider']);
         Session::forget('url.intended');
         // Cart::destroy();
         Auth::logout();
@@ -261,7 +242,7 @@ class AuthController extends Controller
 
             // return view('frontend.auth.account_verification', compact('userEmail', 'userToken'));
 
-        }else{
+        } else {
             return redirect()->route('login')->with('error', 'Something went wrong');
         }
     }

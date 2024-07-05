@@ -23,8 +23,9 @@ class ProductServiceBookingController extends Controller
                 $user_details = User::where('id', $userId)->first();
                 $astro_details = User::with('userDetails')->where('id', $astroId)->first();
                 return view('Administrator.booking.view', compact('booking','user_details','astro_details'));
+            } else{
+                return redirect()->back()->with('error', 'Invalid Booking ID');
             }
-            
         }
     }
 }
