@@ -613,15 +613,7 @@
 
                 </div>
 
-                <div class="ajax-load demo-load" style="display: none">
-
-                    <img src="{{URL::asset('assets/images/ajax-loading.gif')}}" />
-    
-                </div>
-
             </section>
-
-          
         </div>
     </div>
 </div>
@@ -637,78 +629,6 @@
             }
             return string;
         }
-
-
-     function numberFormat(string){
-        // if (string.length > limit) {
-        //         return string.substring(0, limit) + '...';
-        //     }
-        //     return string;
-        if(string){
-            let numericPrice = parseFloat(string);
-            let formattedPrice = numericPrice.toFixed(2); 
-            return formattedPrice;
-        }
-     }   
-</script>
-
-
-<script>
-    function loadmoreData(page) {
-
-        $.ajax({
-
-                url: '?page=' + page,
-
-                type: 'get',
-
-                beforeSend: function() {
-
-                    $('.ajax-load').show();
-
-                },
-
-            })
-
-            .done(function(data) {
-
-                if (data.html == '') {
-
-                    $('.ajax-load').html('No more gemstones available');
-
-                    return;
-
-                }
-
-                $('.ajax-load').hide();
-
-                $('#get_gemstones').append(data.html);
-
-            })
-
-            .fail(function() {
-
-                //  alert('Somthing went wrong');
-
-            });
-
-    }
-
-
-
-    var page = 1;
-
-    $(window).scroll(function() {
-
-        if ($(window).scrollTop() + $(window).height() + 120 >= $(document).height()) {
-
-            page++;
-
-            loadmoreData(page);
-
-        }
-
-    })
 </script>
 
 <script>
@@ -774,12 +694,13 @@
                     },
                     success: function(response) {
                         console.log(response);
-                        if (response.products.data.length > 0) {
+                        // return
+                        if (response.products.length > 0) {
                             $('#get_gemstones').empty();
-                            $.each(response.products.data, function(index, product) {
-                                let limitedDescription = limitString(product.description,150);
-                                let fixedPrice = numberFormat(product.price);
-                                console.log(fixedPrice);
+                            $.each(response.products, function(index, product) {
+                                let limitedDescription = limitString(product
+                                    .description,
+                                    150);
                                 $('#get_gemstones').append(
                                     '<div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1"> <div class="card"> <img class="card-img-top" src="'+APP_URL+'/images/product_images/' +
                                     product.images +
@@ -790,7 +711,7 @@
                                     '</div> <div class="d-flex align-items-center product"> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="fas fa-star"></span> <span class="far fa-star"></span> </div> <div class="d-flex align-items-center justify-content-between pt-3"> <div class="d-flex flex-column"><div class="info_about_title">Carat : ' +
                                     product.weight +
                                     '</div><div class="info_about_title">&#8377; ' +
-                                    fixedPrice +
+                                    product.price +
                                     ' </div> </div> </div> <div class="d-flex flex-row"> <a href="#" id="add_to_cart' +
                                     product.id +
                                     '" data-quantity="1" data-product-id="' +

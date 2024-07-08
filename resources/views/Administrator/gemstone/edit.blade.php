@@ -2,14 +2,14 @@
 
 @section('content')
 
-@section('title', 'Karmkand | Management')
+@section('title', 'Gemstone | Management')
 
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
                 {{-- <h1>General Form</h1> --}}
-                <a href="{{route('admin.products')}}" class="btn btn-info"><i class="fas fa-backward"></i>  Back</a>
+                <a href="{{route('admin.gemstones')}}" class="btn btn-info"><i class="fas fa-backward"></i>  Back</a>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -36,7 +36,7 @@
                     </div> --}}
 
                     <!-- form start -->
-                    <form action="{{route('admin.store.karmkands')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('admin.update.gemstones',$gemstones->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -44,10 +44,10 @@
                                 <div class="form-group col-md-6">
                                     <label for="name">Select Category<span style="color:red">*</span></label>
 
-                                    <select name="category" class="form-control @error('category') is-invalid @enderror" id="">
+                                    <select name="category" class="form-control @error('category') is-invalid @enderror" id="" disabled readonly>
                                         <option value="" selected>Select Category</option>
                                         @foreach($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                        <option value="{{$category->id}}" {{$category->id == $gemstones->category_id ? 'selected' : ''}}>{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('category')
@@ -55,70 +55,68 @@
                                     @enderror
                                 </div>
 
-
                                 <div class="form-group col-md-6">
-                                    <label for="">Karmkand Name <span style="color:red">*</span></label>
+                                    <label for="">Gemstone Name <span style="color:red">*</span></label>
                                     <input type="text" name="name"
                                         class="form-control @error('name') is-invalid @enderror"
-                                        placeholder="Enter Product Name" autocomplete="off">
+                                        placeholder="Enter Gemstone Name" value="{{$gemstones->name}}" autocomplete="off">
                                     @error('name')
                                     <small class="text-danger" data-error='name'>{{ $message }}</small>
                                     @enderror
                                 </div>
-                                
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Price <span style="color:red">*</span></label>
+                                    <label for="price">Price <span style="color:red">*</span></label>
                                     <input type="text" name="price"
                                         class="form-control @error('price') is-invalid @enderror"
-                                        placeholder="Enter Price" id="price" autocomplete="off">
+                                        placeholder="Enter Price" id="price" value="{{$gemstones->price}}" autocomplete="off">
                                     @error('price')
                                     <small class="text-danger" data-error='price'>{{ $message }}</small>
                                     @enderror
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="">Karmkand Image <span style="color:red">*</span></label>
-                                    <input type="file" name="images"
-                                        class="form-control @error('images') is-invalid @enderror"
-                                        placeholder="Upload Product Image">
+                                    <label for="weight">Weight <span style="color:red">*</span></label>
+                                    <input type="text" name="weight"
+                                        class="form-control @error('weight') is-invalid @enderror"
+                                        placeholder="Enter weight" id="weight" value="{{$gemstones->weight}}" autocomplete="off">
+                                    @error('weight')
+                                    <small class="text-danger" data-error='weight'>{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">gemstones Description <span style="color:red">*</span></label>
+                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="4" cols="50">{{trim($gemstones->description)}}</textarea>
+                                @error('description')
+                                <small class="text-danger" data-error='description'>{{ $message }}</small>
+                                @enderror
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="image">gemstones Image : </label>
+                                    <img src="{{URL::asset('images/product_images').'/'.$gemstones->images}}" alt="" width="30%" height="50%">
+                                    <label for="image">Choose data</label
+                                    >
+                                    <input type="file" name="images" value="{{$gemstones->images}}" class="form-control"
+                                    />
                                     @error('images')
                                     <small class="text-danger" data-error='images'>{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
 
+
                             <div class="form-group">
-                                <label for="">Product Description <span style="color:red">*</span></label>
-                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="4" cols="50"></textarea>
-                                @error('description')
-                                <small class="text-danger" data-error='description'>{{ $message }}</small>
-                                @enderror
+                                <input type="hidden" name="slug"
+                                class="form-control"
+                                placeholder="Enter slug" id="slug" value="{{$gemstones->slug}}" autocomplete="off">
                             </div>
-
-
-
-                            {{-- <div class="form-group">
-                                <label>Product Description</label>
-                                <textarea name="description"
-                                    class="form-control @error('description') is-invalid @enderror" id="content"
-                                    placeholder="Enter the Description" rows="5"></textarea>
-                                @error('description')
-                                <small class="text-danger" data-error='description'>{{ $message }}</small>
-                                @enderror
-                            </div> --}}
-
-
-                            {{-- <div class="form-group">
-                                <textarea id="summernote" name="description"
-                                    class="form-control @error('description') is-invalid @enderror">
-                                      </textarea>
-                                @error('description')
-                                <small class="text-danger" data-error='description'>{{ $message }}</small>
-                                @enderror
-                            </div> --}}
 
 
                             {{-- <div class="form-group">
@@ -142,7 +140,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>
@@ -151,7 +149,7 @@
     </div>
 </section>
 
-@section('karmkandJs')
+@section('editGemstoneJs')
 <script type="text/javascript">
     $(function() {
         $("[name='name']").on("focus", function() {
@@ -161,6 +159,12 @@
         $("[name='price']").on("focus", function() {
             $(this).numeric();
             $("[data-error='price']").html("");
+            $(this).removeClass("is-invalid");
+        });
+
+        $("[name='weight']").on("focus", function() {
+            $(this).numeric();
+            $("[data-error='weight']").html("");
             $(this).removeClass("is-invalid");
         });
         

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Gemstone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class GemstoneController extends Controller
 {
@@ -67,6 +68,64 @@ class GemstoneController extends Controller
             }
         } else {
             return back()->with('error', 'Gemstone already exists');
+        }
+    }
+
+
+    public function editGemstone($id)
+    {
+        if (!empty($id)) {
+            $gemstones = Gemstone::find($id);
+            $categories = Category::all();
+            if(!empty($gemstones)){
+                return view('Administrator.gemstone.edit', compact('gemstones','categories'));
+            }else{
+                return redirect()->back()->with('error', 'Invalid Gemstone');
+            }
+            
+        }
+    }
+
+
+    public function updateGemstone(Request $request,$id){
+        $this->validate($request, [
+            'name' => 'required',
+            'price' => 'required',
+            'weight' => 'required',
+            'description' => 'required',
+            'images' => 'required|image|mimes:jpeg,png,jpg,svg',
+        ]);
+
+        $data = Gemstone::where('id', $id)->first();
+        
+        if (!empty($data)) {
+            $gemstone = Gemstone::findOrFail($id);
+            // return $gemstone;
+
+            $gemstone->name = !empty($request->name) ? $request->name : "";
+            $gemstone->description = !empty($request->description) ? $request->description : "";
+            $gemstone->price = !empty($request->price) ? $request->price : "";
+            $gemstone->weight = !empty($request->weight) ? $request->weight : "";
+            if ($request->hasFile('images')) {
+                $imagePath = public_path('images/product_images/'.$data->images);
+                if(File::exists($imagePath)){
+                    unlink($imagePath);
+                }
+
+                $image_tmp = $request->file('images');
+                if ($image_tmp->isValid()) {
+                    $time = time();
+                    $image_name = $time . '_' . $image_tmp->getClientOriginalName();
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    request()->images->move('images/product_images', $image_name);
+                    $imageName = $image_name;
+                    $gemstone->images = $imageName;
+                }   
+            }
+            $gemstone->update();
+            return redirect()->route('admin.gemstones')->with('success', 'Gemstone updated successfully.');
+        } else {
+            return redirect()->redirect()->back()->with('error', 'Gemstone already added.');
         }
     }
 }

@@ -90,7 +90,7 @@ class IndexController extends Controller
 
     public function karamkand()
     {
-        $karmkands = Karmkand::orderBy('id', 'asc')->get();
+        $karmkands = Karmkand::orderBy('id', 'asc')->where('status','Active')->get();
         if(!empty($karmkands)) {
             return view("frontend.karamkand.index",compact('karmkands'));
         }
@@ -118,7 +118,6 @@ class IndexController extends Controller
         if(!empty($karmkand) && !empty($karmkands)){
             return view("frontend.karamkand.karamkand-details",compact('karmkand','karmkands'));
         }
-       
     }
 
 
@@ -447,8 +446,11 @@ class IndexController extends Controller
     * loading. The `` variable contains up to 8 categories that have a parent_id of 1.
     */
     public function gemstones(){
-        $gemstones = Category::with('gemstones')->get();
+
+        $gemstones = Gemstone::paginate('9');
+        // return $gemstones;
         $category = Category::where('parent_id',1)->limit(8)->get();
+        // return $category;
         return view('frontend.gemstones.index',compact('gemstones','category'));
     }
 
@@ -480,7 +482,8 @@ class IndexController extends Controller
             $query->whereBetween('weight', [$request->weight_min, $request->weight_max]);
         }
 
-        $products = $query->get();
+        $products = $query->paginate('9');
+        // $products = $query->get();
 
         return response()->json(['products'=>$products]);
     }

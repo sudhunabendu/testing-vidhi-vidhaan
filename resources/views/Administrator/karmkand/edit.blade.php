@@ -9,7 +9,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 {{-- <h1>General Form</h1> --}}
-                <a href="{{route('admin.products')}}" class="btn btn-info"><i class="fas fa-backward"></i>  Back</a>
+                <a href="{{route('admin.karmkands')}}" class="btn btn-info"><i class="fas fa-backward"></i>  Back</a>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -36,7 +36,7 @@
                     </div> --}}
 
                     <!-- form start -->
-                    <form action="{{route('admin.store.karmkands')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('admin.update.karmkands',$karmkand->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -44,10 +44,10 @@
                                 <div class="form-group col-md-6">
                                     <label for="name">Select Category<span style="color:red">*</span></label>
 
-                                    <select name="category" class="form-control @error('category') is-invalid @enderror" id="">
+                                    <select name="category" class="form-control @error('category') is-invalid @enderror" id="" disabled readonly>
                                         <option value="" selected>Select Category</option>
                                         @foreach($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                        <option value="{{$category->id}}" {{$category->id == $karmkand->category_id ? 'selected' : ''}}>{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('category')
@@ -55,17 +55,15 @@
                                     @enderror
                                 </div>
 
-
                                 <div class="form-group col-md-6">
                                     <label for="">Karmkand Name <span style="color:red">*</span></label>
                                     <input type="text" name="name"
                                         class="form-control @error('name') is-invalid @enderror"
-                                        placeholder="Enter Product Name" autocomplete="off">
+                                        placeholder="Enter Karmkand Name" value="{{$karmkand->name}}" autocomplete="off">
                                     @error('name')
                                     <small class="text-danger" data-error='name'>{{ $message }}</small>
                                     @enderror
                                 </div>
-                                
                             </div>
 
                             <div class="row">
@@ -73,52 +71,42 @@
                                     <label for="exampleInputEmail1">Price <span style="color:red">*</span></label>
                                     <input type="text" name="price"
                                         class="form-control @error('price') is-invalid @enderror"
-                                        placeholder="Enter Price" id="price" autocomplete="off">
+                                        placeholder="Enter Price" id="price" value="{{$karmkand->price}}" autocomplete="off">
                                     @error('price')
                                     <small class="text-danger" data-error='price'>{{ $message }}</small>
                                     @enderror
                                 </div>
 
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Karmkand Description <span style="color:red">*</span></label>
+                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="4" cols="50">{{trim($karmkand->description)}}</textarea>
+                                @error('description')
+                                <small class="text-danger" data-error='description'>{{ $message }}</small>
+                                @enderror
+                            </div>
+
+                            <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="">Karmkand Image <span style="color:red">*</span></label>
-                                    <input type="file" name="images"
-                                        class="form-control @error('images') is-invalid @enderror"
-                                        placeholder="Upload Product Image">
+                                    <label for="image">Karmkand Image : </label>
+                                    <img src="{{URL::asset('images/karmkand_images').'/'.$karmkand->images}}" alt="" width="30%" height="50%">
+                                    <label for="image">Choose data</label
+                                    >
+                                    <input type="file" name="images" value="{{$karmkand->images}}" class="form-control"
+                                    />
                                     @error('images')
                                     <small class="text-danger" data-error='images'>{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
 
+
                             <div class="form-group">
-                                <label for="">Product Description <span style="color:red">*</span></label>
-                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="4" cols="50"></textarea>
-                                @error('description')
-                                <small class="text-danger" data-error='description'>{{ $message }}</small>
-                                @enderror
+                                <input type="hidden" name="slug"
+                                class="form-control"
+                                placeholder="Enter slug" id="slug" value="{{$karmkand->slug}}" autocomplete="off">
                             </div>
-
-
-
-                            {{-- <div class="form-group">
-                                <label>Product Description</label>
-                                <textarea name="description"
-                                    class="form-control @error('description') is-invalid @enderror" id="content"
-                                    placeholder="Enter the Description" rows="5"></textarea>
-                                @error('description')
-                                <small class="text-danger" data-error='description'>{{ $message }}</small>
-                                @enderror
-                            </div> --}}
-
-
-                            {{-- <div class="form-group">
-                                <textarea id="summernote" name="description"
-                                    class="form-control @error('description') is-invalid @enderror">
-                                      </textarea>
-                                @error('description')
-                                <small class="text-danger" data-error='description'>{{ $message }}</small>
-                                @enderror
-                            </div> --}}
 
 
                             {{-- <div class="form-group">
@@ -142,7 +130,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>

@@ -109,7 +109,7 @@
                         </label> --}}
                     </td>
                     <td>
-                      <a href="{{route('admin.edit.products',$category->id)}}"><i class="fa fa-edit"></i></a>
+                      <a href="{{route('admin.edit.gemstones',$category->id)}}"><i class="fa fa-edit"></i></a>
                       {{-- <a style="color: red" href="{{route('admin.delete.products',$product->id)}}"><i class="fa fa-trash"></i></a> --}}
   
                       <form style="margin-left: 36px; margin-top: -24px;" action="{{route('admin.delete.products',$category->id)}}" method="POST">

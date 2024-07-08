@@ -189,13 +189,15 @@
 
                 @foreach ($karmkands as $item)
                     <div class="karamkand_box">
+                        <a href="{{route('karamkand-details',$item->slug)}}">
                         <img src="{{URL::asset('images/karmkand_images/'.$item->images   )}}">
+                    </a>
                         <div class="karamkand_box_main_title">
                             <h3>{{$item->name}}</h3>
                             <h2>₹{{$item->price}}</h2>
                         </div>
                         <p>{{ \Illuminate\Support\Str::limit($item->description, 120, '...')}}</p>
-                        <a href="#" class="btn btn_line_dtl">View Details</a>
+                        <a href="{{route('karamkand-details',$item->slug)}}" class="btn btn_line_dtl">View Details</a>
                     </div>
                 @endforeach
 

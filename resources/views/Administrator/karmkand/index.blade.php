@@ -2,7 +2,7 @@
 
 @section('content')
 
-@section('title', 'Product | Management')
+@section('title', 'Karmkand | Management')
 
 @section('productCSS')
 <link rel="stylesheet"
@@ -106,7 +106,7 @@
                       </label> --}}
                   </td>
                   <td>
-                    <a href="{{route('admin.edit.products',$karmkand->id)}}"><i class="fa fa-edit"></i></a>
+                    <a href="{{route('admin.edit.karmkands',$karmkand->id)}}"><i class="fa fa-edit"></i></a>
                     {{-- <a style="color: red" href="{{route('admin.delete.products',$product->id)}}"><i class="fa fa-trash"></i></a> --}}
 
                     <form style="margin-left: 36px; margin-top: -24px;" action="{{route('admin.delete.products',$karmkand->id)}}" method="POST">

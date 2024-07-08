@@ -141,11 +141,16 @@ Route::group(['prefix'=>'dashboard','middleware'=>['auth','adminrestrictions']],
     Route::get('/gemstones', [GemstoneController::class, 'index'])->name('admin.gemstones');
     Route::get('/gemstones/add', [GemstoneController::class, 'create'])->name('admin.create.gemstones');
     Route::post('/gemstones/store', [GemstoneController::class, 'store'])->name('admin.store.gemstones');
+    Route::get('/gemstones/edit/{id}', [GemstoneController::class, 'editGemstone'])->name('admin.edit.gemstones');
+    Route::post('/gemstones/update/{id}', [GemstoneController::class, 'updateGemstone'])->name('admin.update.gemstones');
+
 
     // karmkands actions
     Route::get('/karmkands', [KarmkandController::class, 'index'])->name('admin.karmkands');
     Route::get('/karmkands/add', [KarmkandController::class, 'createKarmkand'])->name('admin.create.karmkands');
     Route::post('/karmkands/store', [KarmkandController::class, 'storeKarmkand'])->name('admin.store.karmkands');
+    Route::get('/karmkands/edit/{id}', [KarmkandController::class, 'editKarmkand'])->name('admin.edit.karmkands');
+    Route::post('/karmkands/update/{id}', [KarmkandController::class, 'updateKarmkand'])->name('admin.update.karmkands');
 
     // product actions
     Route::get('/products', [ProductController::class, 'productsList'])->name('admin.products');
