@@ -90,7 +90,7 @@ class IndexController extends Controller
 
     public function karamkand()
     {
-        $karmkands = Karmkand::orderBy('id', 'asc')->where('status','Active')->get();
+        $karmkands = Karmkand::orderBy('id', 'asc')->where('status','Active')->paginate(6);
         if(!empty($karmkands)) {
             return view("frontend.karamkand.index",compact('karmkands'));
         }
@@ -135,7 +135,7 @@ class IndexController extends Controller
 
     public function products()
     {
-        $products = Product::latest()->paginate(9);
+        $products = Product::paginate(6);
         return view("frontend.products.index", compact('products'));
     }
 
@@ -446,12 +446,49 @@ class IndexController extends Controller
     * loading. The `` variable contains up to 8 categories that have a parent_id of 1.
     */
     public function gemstones(){
-
+        // $gemstones = Gemstone::all();
         $gemstones = Gemstone::paginate('9');
-        // return $gemstones;
         $category = Category::where('parent_id',1)->limit(8)->get();
-        // return $category;
+        // return $gemstones;
         return view('frontend.gemstones.index',compact('gemstones','category'));
+    }
+
+
+    public function testGemstone(Request $request){
+        $gemstones = Gemstone::paginate('9');
+        $category = Category::where('parent_id',1)->limit(8)->get();
+        if ($request->ajax()) {
+            return view('frontend.gemstones.test_list_gemstone', compact('gemstones','category'))->render();
+        }
+        return view('frontend.gemstones.test_index',compact('gemstones','category'));
+    }
+
+
+    public function testfilterGemstones(Request $request)
+    {
+        $query = Gemstone::query();
+
+        if ($request->has('category_id')) {
+            $query->whereIn('category_id', $request->category_id);
+        }
+       
+        if ($request->has('price_min') && $request->has('price_max')) {
+            $query->whereBetween('price', [$request->price_min, $request->price_max]);
+        }
+
+        if ($request->has('weight_min') && $request->has('weight_max')) {
+            $query->whereBetween('weight', [$request->weight_min, $request->weight_max]);
+        }
+
+        $products = $query->paginate('9');
+        if ($request->ajax()) {
+            return view('gemstones.test_list_gemstone', compact('products'))->render();
+        }
+        // $products = $query->get();
+
+        // return response()->json(['products'=>$products]);
+        return view('frontend.gemstones.test_index', compact('products'));
+        
     }
 
 
@@ -482,8 +519,8 @@ class IndexController extends Controller
             $query->whereBetween('weight', [$request->weight_min, $request->weight_max]);
         }
 
-        $products = $query->paginate('9');
-        // $products = $query->get();
+        // $products = $query->paginate('9');
+        $products = $query->get();
 
         return response()->json(['products'=>$products]);
     }

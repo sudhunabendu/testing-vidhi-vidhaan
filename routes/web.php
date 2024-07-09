@@ -72,6 +72,7 @@ Route::post('api/fetch-cities', [IndexController::class, 'fetchCity'])->name('fe
 // Route::get('/filter_gemstones', [IndexController::class, 'filterProducts'])->name('filter.gemstones');
 
 Route::get('/gemstones/gemstone-cat/{slug}/', [IndexController::class, 'gemesCategory'])->name('gemstone.category');
+// Route::get('/gemstones', [IndexController::class, 'testGemstone'])->name('gemstones');
 Route::get('/gemstones', [IndexController::class, 'gemstones'])->name('gemstones');
 Route::get('/filter_cat_by_gemstones', [IndexController::class, 'filterProducts'])->name('filter.gemstones');
 Route::get('/filter_gemstones', [IndexController::class, 'filterGemstones'])->name('filter.gems');

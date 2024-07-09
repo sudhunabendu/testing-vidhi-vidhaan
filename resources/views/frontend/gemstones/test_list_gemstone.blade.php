@@ -27,5 +27,18 @@
 </div>
 @endforeach
 
+<div>
+    
+</div>
 
+{{-- <section class="pagination">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ $gemstones->links('pagination::bootstrap-4') }}
+            </div>
+        </div>
 
+        <hr>
+    </div>
+</section> --}}

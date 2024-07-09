@@ -38,6 +38,7 @@
                     </div>
                 </div>
                 @endforeach
+               
 
             @else
                 
@@ -173,6 +174,9 @@
                 <a href="#" class="btn btn_line_dtl">View Details</a>
             </div> --}}
 
+        </div>
+        <div class="d-felx justify-content-center">
+            {!! $karmkands->links('pagination::bootstrap-5') !!}
         </div>
     </div>
 </section>

@@ -445,6 +445,12 @@
         .content.py-md-0.py-3 {
             overflow: inherit;
         }
+
+        .ajax-load{
+            background: #e1e1e1;
+            padding: 10px 0px;
+            width: 100%;
+        }
     }
 </style>
 
@@ -608,23 +614,9 @@
             </section> <!-- Products Section -->
             <section id="products">
                 <div class="row" id="get_gemstones">
-
-                    @include('frontend.gemstones.list_gemstones')
-
+                    @include('frontend.gemstones.test_list_gemstone')
                 </div>
-
-                <div class="d-felx justify-content-center">
-                    {{ $gemstones->links('pagination::bootstrap-5') }}
-                </div>
-                {{-- <div class="ajax-load demo-load" style="display: none">
-
-                    <img src="{{URL::asset('assets/images/ajax-loading.gif')}}" />
-    
-                </div> --}}
-
             </section>
-
-          
         </div>
     </div>
 </div>
@@ -633,6 +625,7 @@
 @section('gemstones_section_list')
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+
 <script>
     function limitString(string, limit) {
             if (string.length > limit) {
@@ -640,74 +633,6 @@
             }
             return string;
         }
-
-
-    //  function numberFormat(string){
-    //     if(string){
-    //         let numericPrice = parseFloat(string);
-    //         let formattedPrice = numericPrice.toFixed(2); 
-    //         return formattedPrice;
-    //     }
-    //  }   
-</script>
-
-
-<script>
-    function loadmoreData(page) {
-
-        $.ajax({
-
-                url: '?page=' + page,
-
-                type: 'get',
-
-                beforeSend: function() {
-
-                    $('.ajax-load').show();
-
-                },
-
-            })
-
-            .done(function(data) {
-
-                if (data.html == '') {
-
-                    $('.ajax-load').html('No more gemstones available');
-
-                    return;
-
-                }
-
-                $('.ajax-load').hide();
-
-                $('#get_gemstones').append(data.html);
-
-            })
-
-            .fail(function() {
-
-                //  alert('Somthing went wrong');
-
-            });
-
-    }
-
-
-
-    var page = 1;
-
-    $(window).scroll(function() {
-
-        if ($(window).scrollTop() + $(window).height() + 120 >= $(document).height()) {
-
-            page++;
-
-            loadmoreData(page);
-
-        }
-
-    })
 </script>
 
 <script>
@@ -773,10 +698,13 @@
                     },
                     success: function(response) {
                         console.log(response);
+                        // return
                         if (response.products.length > 0) {
                             $('#get_gemstones').empty();
                             $.each(response.products, function(index, product) {
-                                let limitedDescription = limitString(product.description,150);
+                                let limitedDescription = limitString(product
+                                    .description,
+                                    150);
                                 $('#get_gemstones').append(
                                     '<div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1"> <div class="card"> <img class="card-img-top" src="'+APP_URL+'/images/product_images/' +
                                     product.images +
@@ -815,6 +743,10 @@
         });
 </script>
 
+
+
+
+{{-- add to cart script --}}
 
 <script>
     $(document).on('click', '.add_to_cart', function(e) {
@@ -865,6 +797,7 @@
 
         });
 </script>
+
 
 @endsection
 
