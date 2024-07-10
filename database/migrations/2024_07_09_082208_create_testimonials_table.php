@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
             $table->string('name');
             $table->string('role');
             $table->text('description');
             $table->string('images');
             $table->enum('status',['Active','Inactive'])->default('Active');
+            $table->bigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

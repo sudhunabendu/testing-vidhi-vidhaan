@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('content');
             $table->string('slug')->unique();
             $table->enum('status',['Active','Inactive'])->default('Active');
+            $table->bigInteger('created_by')->default(0);
             $table->timestamps();
             // $table->softDeletes();
         });

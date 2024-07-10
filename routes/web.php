@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Administrator\AuthController;
+use App\Http\Controllers\Administrator\BlogController;
 use App\Http\Controllers\Administrator\CategoryController;
 use App\Http\Controllers\Administrator\ContactController as AdministratorContactController;
 use App\Http\Controllers\Administrator\GemstoneController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Administrator\ProductController;
 use App\Http\Controllers\Administrator\ProductServiceBookingController as AdministratorProductServiceBookingController;
 use App\Http\Controllers\Administrator\ProviderController as AdministratorProviderController;
 use App\Http\Controllers\Administrator\ServiceController;
+use App\Http\Controllers\Administrator\TestimonialController;
 use App\Http\Controllers\Administrator\UserController;
 use App\Http\Controllers\Front\AuthController as FrontAuthController;
 use App\Http\Controllers\Front\CartController;
@@ -161,6 +163,28 @@ Route::group(['prefix'=>'dashboard','middleware'=>['auth','adminrestrictions']],
     Route::get('/products/edit/{id}', [ProductController::class, 'editProduct'])->name('admin.edit.products');
     Route::post('/products/update/{id}', [ProductController::class, 'updateProduct'])->name('admin.update.products');
     Route::post('/products/delete/{id}', [ProductController::class, 'deleteProduct'])->name('admin.delete.products');
+
+
+    // Blogs actions
+    Route::get('/blogs', [BlogController::class, 'index'])->name('admin.blogs');
+    Route::get('/blogs/add', [BlogController::class, 'blogAdd'])->name('admin.add.blogs');
+    Route::post('/blogs/store', [BlogController::class, 'blogStore'])->name('admin.store.blogs');
+    Route::post('/blogs/blogs_status_change', [BlogController::class, 'blogsStatusChange'])->name('admin.blogs.status_change');
+    Route::get('/blogs/edit/{id}', [BlogController::class, 'editBlog'])->name('admin.edit.blogs');
+    Route::post('/blogs/update/{id}', [BlogController::class, 'updateBlog'])->name('admin.update.blogs');
+    Route::post('/blogs/delete/{id}', [BlogController::class, 'deleteBlog'])->name('admin.delete.blogs');
+
+
+    // Testimonials action
+    Route::get('/testimonials', [TestimonialController::class, 'index'])->name('admin.testimonials');
+    Route::get('/testimonials/add', [TestimonialController::class, 'TestimonialAdd'])->name('admin.add.testimonials');
+    Route::post('/testimonials/store', [TestimonialController::class, 'testimonialStore'])->name('admin.store.testimonials');
+    Route::post('/testimonials/testimonials_status_change', [TestimonialController::class, 'testimonialStatusChange'])->name('admin.testimonials.status_change');
+    Route::get('/testimonials/edit/{id}', [TestimonialController::class, 'editTestimonial'])->name('admin.edit.testimonials');
+    Route::post('/testimonials/update/{id}', [TestimonialController::class, 'updateTestimonial'])->name('admin.update.testimonials');
+    Route::post('/testimonials/delete/{id}', [TestimonialController::class, 'deleteTestimonial'])->name('admin.delete.testimonials');
+    
+
     
 
     // users actions

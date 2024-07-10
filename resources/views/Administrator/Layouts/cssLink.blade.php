@@ -31,3 +31,7 @@
 @yield('gemstoneCSS')
 @yield('bookingCSS')
 @yield('astroCss')
+@yield('blogCSS')
+@yield('BlogAdded')
+@yield('testimonialCSS')
+@yield('TestimonialAdded')

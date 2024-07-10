@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
@@ -11,6 +12,7 @@ use App\Models\Karmkand;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\State;
+use App\Models\Testimonial;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,8 +33,11 @@ class IndexController extends Controller
         $karmkands = Category::where('parent_id',2)->limit(8)->get();
         // $services = Service::limit(6)->get();
         $providers = User::with('userDetails')->where(['role_id'=>4,'status'=>'Approved'])->get();
+        $blogs = Blog::where('status','Active')->limit(3)->get();
+        $testimonials = Testimonial::where('status','Active')->limit(6)->get();
+ 
         // return $providers;
-        return view("frontend.home.index", compact('products', 'providers','karmkands'));
+        return view("frontend.home.index", compact('products', 'providers','karmkands','blogs','testimonials'));
     }
 
 
@@ -45,8 +50,9 @@ class IndexController extends Controller
         // $services = Service::limit(6)->get();
         $gemstones = Gemstone::all();
         // return $gemstones;
+        $testimonials = Testimonial::where('status','Active')->limit(6)->get();
         $providers = User::with('userDetails')->where(['role_id'=>4,'status'=>'Approved'])->get();
-        return view("frontend.about.index", compact('products','providers','gemstones'));
+        return view("frontend.about.index", compact('products','providers','gemstones','testimonials'));
     }
 
 
@@ -124,7 +130,8 @@ class IndexController extends Controller
 
     public function testimonial()
     {
-        return view("frontend.testimonial.index");
+        $testimonials = Testimonial::where('status','Active')->paginate(4);
+        return view("frontend.testimonial.index",compact('testimonials'));
     }
 
     public function contact()
@@ -142,7 +149,12 @@ class IndexController extends Controller
 
     public function blog()
     {
-        return view("frontend.blogs.index");
+        $blogs = Blog::where('status','Active')->paginate(3);
+        // $timestamp = '2024-07-10 16:29:50';
+        // $date = Carbon::parse($timestamp);
+
+        // echo $date->format('jS F, Y'); // Output: 10th July, 2024
+        return view("frontend.blogs.index",compact('blogs'));
     }
 
 

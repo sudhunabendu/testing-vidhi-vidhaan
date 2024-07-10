@@ -147,6 +147,24 @@
                         </p>
                     </a>
                 </li> --}}
+                <li class="nav-item">
+                    <a href="{{route('admin.blogs')}}" class="nav-link {{Request::is('dashboard/blogs*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-address-book"></i>
+                        <p>
+                            Blog Management
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.testimonials')}}" class="nav-link {{Request::is('dashboard/testimonials*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-address-book"></i>
+                        <p>
+                            Testimonial Management
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a href="{{route('admin.bookings')}}" class="nav-link {{Request::is('dashboard/bookings*') ? 'active' : '' }}">
@@ -157,6 +175,7 @@
                         </p>
                     </a>
                 </li>
+               
 
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">

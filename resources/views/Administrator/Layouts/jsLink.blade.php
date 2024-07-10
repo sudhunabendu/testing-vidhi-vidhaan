@@ -63,3 +63,5 @@
     @yield('karmkandJs')
     @yield('bookingJS')
     @yield('editGemstoneJs')
+    @yield('testimonialJS')
+    @yield('testimonialsAddJs')

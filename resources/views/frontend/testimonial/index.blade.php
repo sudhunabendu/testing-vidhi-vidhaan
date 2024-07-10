@@ -17,36 +17,34 @@
 <div class="inner-testimonial-start">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <div class="inner-testimonial-main-bx">
-                    <div class="inner-testi-img-start">
-                        <div class="inn-test-img">
-                            <img src="{{URL::asset('frontend/assets/images/inner-client-img1.png')}}"
-                                class="inn-testi-main-img" alt="">
-                            <img src="{{URL::asset('frontend/assets/images/testi-shape.png')}}"
-                                class="inner-testi-shape" alt="">
+            @foreach ($testimonials as $item)
+                <div class="col-lg-6 col-md-6">
+                    <div class="inner-testimonial-main-bx">
+                        <div class="inner-testi-img-start">
+                            <div class="inn-test-img">
+                                <img src="{{URL::asset('images/testimonial_images/'.$item->images)}}"
+                                    class="inn-testi-main-img" alt="">
+                                <img src="{{URL::asset('frontend/assets/images/testi-shape.png')}}"
+                                    class="inner-testi-shape" alt="">
+                            </div>
+                            <ul class="list-inline">
+                                <li><i class="fa-solid fa-star"></i></li>
+                                <li><i class="fa-solid fa-star"></i></li>
+                                <li><i class="fa-solid fa-star"></i></li>
+                                <li><i class="fa-solid fa-star"></i></li>
+                                <li><i class="fa-regular fa-star"></i></li>
+                            </ul>
                         </div>
-                        <ul class="list-inline">
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-solid fa-star"></i></li>
-                            <li><i class="fa-regular fa-star"></i></li>
-                        </ul>
-                    </div>
-                    <p>On sait depuis longtemps que travailler avec du texte lisible et
-                        contenant du sens est source de distractions, et empêche
-                        de se concentrer. Iil utilise un dictionnaire de plus de
-                        200 mots latins, en combinaison de plusieurs
-                        structures de phrases</p>
-                    <div class="inn-testi-name-bx">
-                        <h4>Mitchel Jones</h4>
-                        <p>On sait depuis longtemps</p>
+                        <p>{{$item->description}}</p>
+                        <div class="inn-testi-name-bx">
+                            <h4>{{$item->name}}</h4>
+                            <p>{{$item->role}}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
 
-            <div class="col-lg-6 col-md-6">
+            {{-- <div class="col-lg-6 col-md-6">
                 <div class="inner-testimonial-main-bx">
                     <div class="inner-testi-img-start">
                         <div class="inn-test-img">
@@ -73,9 +71,9 @@
                         <p>On sait depuis longtemps</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-lg-6 col-md-6">
+            {{-- <div class="col-lg-6 col-md-6">
                 <div class="inner-testimonial-main-bx">
                     <div class="inner-testi-img-start">
                         <div class="inn-test-img">
@@ -102,9 +100,9 @@
                         <p>On sait depuis longtemps</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-lg-6 col-md-6">
+            {{-- <div class="col-lg-6 col-md-6">
                 <div class="inner-testimonial-main-bx">
                     <div class="inner-testi-img-start">
                         <div class="inn-test-img">
@@ -131,9 +129,9 @@
                         <p>On sait depuis longtemps</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-lg-6 col-md-6">
+            {{-- <div class="col-lg-6 col-md-6">
                 <div class="inner-testimonial-main-bx">
                     <div class="inner-testi-img-start">
                         <div class="inn-test-img">
@@ -160,9 +158,9 @@
                         <p>On sait depuis longtemps</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-lg-6 col-md-6">
+            {{-- <div class="col-lg-6 col-md-6">
                 <div class="inner-testimonial-main-bx">
                     <div class="inner-testi-img-start">
                         <div class="inn-test-img">
@@ -189,7 +187,10 @@
                         <p>On sait depuis longtemps</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
+        </div>
+        <div class="d-felx justify-content-center">
+            {{ $testimonials->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </div>

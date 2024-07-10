@@ -233,10 +233,10 @@
                             <img src="{{URL::asset('images/product_images/').'/'.$gemstone->images}}">
                             <div class="buy_gemstone_text">
                                 <h2>{{ucfirst($gemstone->name)}}</h2>
-                                <p class="text-center" style="color: #411e40">₹ {{$gemstone->price}}</p>
-                                <a href="#" data-quantity="1" data-product-id="{{$gemstone->id}}"
+                                {{-- <p class="text-center" style="color: #411e40">₹ {{$gemstone->price}}</p> --}}
+                                {{-- <a href="#" data-quantity="1" data-product-id="{{$gemstone->id}}"
                                     id="add_to_cart{{$gemstone->id}}" class="add_to_cart btn btn_line gemstone_buybtn">Add To
-                                    Cart</a>
+                                    Cart</a> --}}
                                 {{-- <a href="#" class="btn btn_line gemstone_buybtn">Buy Now</a> --}}
                             </div>
                         </div>
@@ -331,8 +331,8 @@
         </div>
         @endif
 
-        @if(count($products) > 0)
-        <a href="{{route('products')}}" class="btn gemstone_explorebtn page_btn_dark ">Explore All</a>
+        @if(count($gemstones) > 0)
+        <a href="{{route('gemstones')}}" class="btn gemstone_explorebtn page_btn_dark ">Explore All</a>
         @else
 
         @endif
@@ -424,107 +424,33 @@
             <h2 class="info_about_title">Our <span>Testimonials</span></h2>
         </div>
         <div class="testimonial-slider owl-carousel owl-theme">
-            <div class="item">
-                <div class="testimonial-main-box">
-                    <div class="testimonial-img-box">
-                        <img src="{{URL::asset('frontend/assets/images/testimonial-img1.png')}}" alt="">
-                    </div>
-                    <div class="testimonial-maincontent-box">
-                        <div class="testimonial-maincontent">
-                            <img src="{{URL::asset('frontend/assets/images/quote.png')}}" class="quote-icon" alt="">
-                            <div class="testimonial_new_bx">
-                                <div class="testimonial_flexbox">
-                                    <img src="{{URL::asset('frontend/assets/images/testimonial-img1.png')}}" alt="">
-                                    <div>
-                                        <h3>Mitchel Jones</h3>
-                                        <p>Founder & CEO</p>
-                                    </div>
-                                </div>
-                                <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens
-                                    est source de distractions, et empêche de se concentrer. Iil utilise un dictionnaire
-                                    de plus de 200 mots latins, en combinaison de plusieurs structures de phrases</p>
-                            </div>
+            @foreach ($testimonials as $item)
+                <div class="item">
+                    <div class="testimonial-main-box">
+                        <div class="testimonial-img-box">
+                            <img src="{{URL::asset('images/testimonial_images/'.$item->images)}}" alt="">
                         </div>
+                        <div class="testimonial-maincontent-box">
+                            <div class="testimonial-maincontent">
+                                <img src="{{URL::asset('frontend/assets/images/quote.png')}}" class="quote-icon" alt="">
+                                <div class="testimonial_new_bx">
+                                    <div class="testimonial_flexbox">
+                                        <img src="{{URL::asset('images/testimonial_images/'.$item->images)}}" alt="">
+                                        <div>
+                                            <h3>{{$item->name}}</h3>
+                                            <p>{{$item->role}}</p>
+                                        </div>
+                                    </div>
+                                    <p>{{$item->description}}</p>
+                                </div>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="testimonial-main-box">
-                    <div class="testimonial-img-box">
-                        <img src="{{URL::asset('frontend/assets/images/testimonial-img2.png')}}" alt="">
-                    </div>
-                    <div class="testimonial-maincontent-box">
-                        <div class="testimonial-maincontent">
-                            <img src="{{URL::asset('frontend/assets/images/quote.png')}}" class="quote-icon" alt="">
-                            <div class="testimonial_new_bx">
-                                <div class="testimonial_flexbox">
-                                    <img src="{{URL::asset('frontend/assets/images/testimonial-img2.png')}}" alt="">
-                                    <div>
-                                        <h3>Mitchel Jones</h3>
-                                        <p>Founder & CEO</p>
-                                    </div>
-                                </div>
-                                <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens
-                                    est source de distractions, et empêche de se concentrer. Iil utilise un dictionnaire
-                                    de plus de 200 mots latins, en combinaison de plusieurs structures de phrases</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="testimonial-main-box">
-                    <div class="testimonial-img-box">
-                        <img src="{{URL::asset('frontend/assets/images/testimonial-img3.png')}}" alt="">
-                    </div>
-                    <div class="testimonial-maincontent-box">
-                        <div class="testimonial-maincontent">
-                            <img src="{{URL::asset('frontend/assets/images/quote.png')}}" class="quote-icon" alt="">
-                            <div class="testimonial_new_bx">
-                                <div class="testimonial_flexbox">
-                                    <img src="{{URL::asset('frontend/assets/images/testimonial-img3.png')}}" alt="">
-                                    <div>
-                                        <h3>Mitchel Jones</h3>
-                                        <p>Founder & CEO</p>
-                                    </div>
-                                </div>
-                                <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens
-                                    est source de distractions, et empêche de se concentrer. Iil utilise un dictionnaire
-                                    de plus de 200 mots latins, en combinaison de plusieurs structures de phrases</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="testimonial-main-box">
-                    <div class="testimonial-img-box">
-                        <img src="{{URL::asset('frontend/assets/images/testimonial-img1.png')}}" alt="">
-                    </div>
-                    <div class="testimonial-maincontent-box">
-                        <div class="testimonial-maincontent">
-                            <img src="{{URL::asset('frontend/assets/images/quote.png')}}" class="quote-icon" alt="">
-                            <div class="testimonial_new_bx">
-                                <div class="testimonial_flexbox">
-                                    <img src="{{URL::asset('frontend/assets/images/testimonial-img1.png')}}" alt="">
-                                    <div>
-                                        <h3>Mitchel Jones</h3>
-                                        <p>Founder & CEO</p>
-                                    </div>
-                                </div>
-                                <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens
-                                    est source de distractions, et empêche de se concentrer. Iil utilise un dictionnaire
-                                    de plus de 200 mots latins, en combinaison de plusieurs structures de phrases</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="item">
+            @endforeach
+           
+            {{-- <div class="item">
                 <div class="testimonial-main-box">
                     <div class="testimonial-img-box">
                         <img src="{{URL::asset('frontend/assets/images/testimonial-img2.png')}}" alt="">
@@ -548,8 +474,8 @@
 
                     </div>
                 </div>
-            </div>
-            <div class="item">
+            </div> --}}
+            {{-- <div class="item">
                 <div class="testimonial-main-box">
                     <div class="testimonial-img-box">
                         <img src="{{URL::asset('frontend/assets/images/testimonial-img3.png')}}" alt="">
@@ -573,7 +499,82 @@
 
                     </div>
                 </div>
-            </div>
+            </div> --}}
+            {{-- <div class="item">
+                <div class="testimonial-main-box">
+                    <div class="testimonial-img-box">
+                        <img src="{{URL::asset('frontend/assets/images/testimonial-img1.png')}}" alt="">
+                    </div>
+                    <div class="testimonial-maincontent-box">
+                        <div class="testimonial-maincontent">
+                            <img src="{{URL::asset('frontend/assets/images/quote.png')}}" class="quote-icon" alt="">
+                            <div class="testimonial_new_bx">
+                                <div class="testimonial_flexbox">
+                                    <img src="{{URL::asset('frontend/assets/images/testimonial-img1.png')}}" alt="">
+                                    <div>
+                                        <h3>Mitchel Jones</h3>
+                                        <p>Founder & CEO</p>
+                                    </div>
+                                </div>
+                                <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens
+                                    est source de distractions, et empêche de se concentrer. Iil utilise un dictionnaire
+                                    de plus de 200 mots latins, en combinaison de plusieurs structures de phrases</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div> --}}
+            {{-- <div class="item">
+                <div class="testimonial-main-box">
+                    <div class="testimonial-img-box">
+                        <img src="{{URL::asset('frontend/assets/images/testimonial-img2.png')}}" alt="">
+                    </div>
+                    <div class="testimonial-maincontent-box">
+                        <div class="testimonial-maincontent">
+                            <img src="{{URL::asset('frontend/assets/images/quote.png')}}" class="quote-icon" alt="">
+                            <div class="testimonial_new_bx">
+                                <div class="testimonial_flexbox">
+                                    <img src="{{URL::asset('frontend/assets/images/testimonial-img2.png')}}" alt="">
+                                    <div>
+                                        <h3>Mitchel Jones</h3>
+                                        <p>Founder & CEO</p>
+                                    </div>
+                                </div>
+                                <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens
+                                    est source de distractions, et empêche de se concentrer. Iil utilise un dictionnaire
+                                    de plus de 200 mots latins, en combinaison de plusieurs structures de phrases</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div> --}}
+            {{-- <div class="item">
+                <div class="testimonial-main-box">
+                    <div class="testimonial-img-box">
+                        <img src="{{URL::asset('frontend/assets/images/testimonial-img3.png')}}" alt="">
+                    </div>
+                    <div class="testimonial-maincontent-box">
+                        <div class="testimonial-maincontent">
+                            <img src="{{URL::asset('frontend/assets/images/quote.png')}}" class="quote-icon" alt="">
+                            <div class="testimonial_new_bx">
+                                <div class="testimonial_flexbox">
+                                    <img src="{{URL::asset('frontend/assets/images/testimonial-img3.png')}}" alt="">
+                                    <div>
+                                        <h3>Mitchel Jones</h3>
+                                        <p>Founder & CEO</p>
+                                    </div>
+                                </div>
+                                <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens
+                                    est source de distractions, et empêche de se concentrer. Iil utilise un dictionnaire
+                                    de plus de 200 mots latins, en combinaison de plusieurs structures de phrases</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div> --}}
         </div>
         <a href="{{route('testimonial')}}" class="btn gemstone_explorebtn page_btn_dark mt-2">Read More</a>
         <img src="{{URL::asset('frontend/assets/images/star1.png')}}" class="star2" alt="">
