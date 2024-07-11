@@ -59,6 +59,7 @@ Route::post('/user-registration',[FrontAuthController::class, 'userRegister'])->
 Route::get('/userlogout',[FrontAuthController::class, 'logout'])->name('userlogout');
 Route::post('/contact-us',[ContactController::class, 'contactUs'])->name('contact-us');
 Route::get('/blog',[IndexController::class, 'blog'])->name('blog');
+Route::get('/blog/{slug}',[IndexController::class, 'blogDetails'])->name('blog.details');
 Route::get('/forget-password',[IndexController::class, 'ForgetPassword'])->name('user-forget-password');
 Route::post('/user-password/submit-request', [IndexController::class, 'submitForgetPasswordForm'])->name('user.submit.request');
 Route::get('/user-password/reset/{token}', [IndexController::class, 'getresetPasswordForm'])->name('user.reset.password.getForm');

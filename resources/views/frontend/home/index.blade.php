@@ -445,7 +445,7 @@
                                 <div class="downalodapp_info_inr">
                                     <h2>{{ $item->title }}</h2>
                                     <p>{{ \Illuminate\Support\Str::limit($item->content, 110, '...') }}</p>
-                                    <a href="{{ route('blog') }}" class="blog_read_more">Read More</a>
+                                    <a href="{{ route('blog.details',$item->slug) }}" class="blog_read_more">Read More</a>
                                 </div>
                             </div>
                         </div>

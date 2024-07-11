@@ -158,6 +158,20 @@ class IndexController extends Controller
     }
 
 
+    public function blogDetails($slug){
+        if(!empty($slug)){
+            $blog = Blog::where('slug', $slug)->first();
+            $blogs = Blog::where('status','Active')->get();
+            if(!empty($blog)){
+                
+                return view("frontend.blogs.details",compact('blog','blogs'));
+            }
+        }
+        // $blogs = Blog::where('status','Active')->paginate(3);
+        // return view("frontend.blogs.index",compact('blogs'));
+    }
+
+
     public function cart()
     {
         return view("frontend.cart.index");

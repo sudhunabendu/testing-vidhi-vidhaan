@@ -44,7 +44,7 @@ class BlogController extends Controller
             $userId = $user->id;
             $blog = new Blog();
             $blog->title = !empty($request->title) ? $request->title : "";
-            $slugname = str_replace(' ', '-', $request->title);
+            $slugname = str_replace(' ', '_', $request->title);
             $blog->slug = !empty($slugname) ? $slugname : "";
             $blog->content = !empty($request->content) ? $request->content : "";
             $blog->created_by = $userId;
@@ -104,7 +104,7 @@ class BlogController extends Controller
             $userId = $user->id;
             $blog = Blog::findOrFail($id);
             $blog->title = !empty($request->title) ? $request->title : "";
-            $slugname = str_replace(' ', '-', $request->title);
+            $slugname = str_replace(' ', '_', $request->title);
             $blog->slug = !empty($slugname) ? $slugname : "";
             $blog->content = !empty($request->content) ? $request->content : "";
             $blog->created_by = $userId;
