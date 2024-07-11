@@ -110,9 +110,9 @@
                 <div class="single-blog-form-box">
                     <div class="shape-small-circle2"></div>
                     <form action="" method="post">
-                        <input type="text" class="form-control " placeholder="Your full name*">
-                        <input type="text" class="form-control " placeholder="Your Email*">
-                        <input type="text" class="form-control " placeholder="Your Phone*">
+                        {{-- <input type="text" class="form-control " placeholder="Your full name*">
+                        <input type="text" class="form-control " placeholder="Your Email*"> --}}
+                        {{-- <input type="text" class="form-control " placeholder="Your Phone*"> --}}
                         <textarea class="form-control " placeholder="Write Your Comment"></textarea>
                         <button type="button" class="btn btn-light">Post Comment</button>
                     </form>
